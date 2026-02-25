@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — Urban Counsellor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="hero" id="top">
+    <nav class="nav">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">URBAN COUNSELLOR</span>
+      </div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/#services">Services</a>
+        <a href="/#articles">Articles</a>
+        <a href="/#therapists">Counsellors</a>
+        <a href="/#reviews">Reviews</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-primary">Get Started</button>
+        <a class="nav-link" href="/signin">Sign In</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="section auth">
+    <div class="login-card">
+      <div class="login-left">
+        <div id="login-root"></div>
+      </div>
+      <div class="login-right">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80"
+          alt="Secure login" />
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">URBAN COUNSELLOR</span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Support</a>
+    </div>
+    <span class="footer-copy">© 2026 Urban Counsellor. All rights reserved.</span>
+  </footer>
+  <script src="/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script>
+    const SUPABASE_URL = window.SUPABASE_URL || "https://YOUR_PROJECT_ID.supabase.co";
+    const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || "YOUR_PUBLIC_ANON_KEY";
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Redirect to home if already logged in
+    sb.auth.getSession().then(({ data: { session } }) => {
+      if (session && session.user) window.location.replace("/");
+    });
+
+    async function api(path, method, body) {
+      try {
+        const res = await fetch(path, {
+          method,
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: body ? JSON.stringify(body) : undefined,
+        });
+        const contentType = res.headers.get("content-type") || "";
+        const data = contentType.includes("application/json")
+          ? await res.json().catch(() => ({}))
+          : await res.text().catch(() => "");
+        if (!res.ok) {
+          const msg = typeof data === "string" ? data : data.error || "Request failed";
+          throw new Error(msg);
+        }
+        return typeof data === "string" ? { message: data } : data;
+      } catch (err) {
+        throw new Error("Network error. Please retry.");
+      }
+    }
+
+    function App() {
+      const [mode, setMode] = React.useState("signin"); // signin | signup
+      const [email, setEmail] = React.useState("");
+      const [password, setPassword] = React.useState("");
+      const [msg, setMsg] = React.useState("");
+      const e = React.createElement;
+
+      async function onSubmit(evn) {
+        evn.preventDefault();
+        setMsg("");
+        try {
+          if (mode === "signin") {
+            const { error } = await sb.auth.signInWithPassword({ email: email.trim(), password });
+            if (error) throw new Error(error.message);
+            window.location.href = "/";
+          } else {
+            const { error: sbErr } = await sb.auth.signUp({ email: email.trim(), password });
+            if (sbErr) throw new Error(sbErr.message);
+            try {
+              await api("/api/signup", "POST", { email: email.trim() });
+            } catch (_) { }
+            setMode("signin");
+            setMsg("Account created. Please sign in.");
+          }
+        } catch (err) {
+          setMsg(err.message);
+        }
+      }
+
+      async function signInGoogle() {
+        setMsg("");
+        try {
+          const { error } = await sb.auth.signInWithOAuth({
+            provider: "google",
+            options: { redirectTo: window.location.origin + "/" }
+          });
+          if (error) throw new Error(error.message);
+        } catch (err) {
+          setMsg(err.message);
+        }
+      }
+
+      React.useEffect(() => {
+        if (SUPABASE_URL.includes("YOUR_PROJECT_ID") || SUPABASE_ANON_KEY === "YOUR_PUBLIC_ANON_KEY") {
+          setMsg("Add Supabase URL and anon key to enable authentication.");
+        }
+      }, []);
+
+      const emailGroup = e(
+        "div",
+        { className: "form-group" },
+        e("label", null, "Email*"),
+        e("input", {
+          type: "email",
+          placeholder: "you@example.com",
+          value: email,
+          onChange: (evn) => setEmail(evn.target.value),
+        })
+      );
+
+      const passwordGroup = e(
+        "div",
+        { className: "form-group" },
+        e("label", null, "Password*"),
+        e("input", {
+          type: "password",
+          placeholder: "••••••••",
+          value: password,
+          onChange: (evn) => setPassword(evn.target.value),
+        })
+      );
+
+      const formRow = e(
+        "div",
+        { className: "form-row" },
+        e(
+          "label",
+          { className: "checkbox" },
+          e("input", { type: "checkbox" }),
+          e("span", null, "Remember Me?")
+        ),
+        e("a", { href: "#", className: "link" }, "Forgot Password")
+      );
+
+      const actionsRow = e(
+        "div",
+        null,
+        e("button", { className: "btn btn-primary btn-large", type: "submit" }, mode === "signin" ? "Login" : "Create Account"),
+        mode === "signin"
+          ? e("button", { className: "btn btn-outline google-btn", type: "button", onClick: signInGoogle, style: { display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" } },
+            e("svg", { width: "18", height: "18", viewBox: "0 0 48 48" },
+              e("path", { fill: "#EA4335", d: "M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" }),
+              e("path", { fill: "#4285F4", d: "M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" }),
+              e("path", { fill: "#FBBC05", d: "M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" }),
+              e("path", { fill: "#34A853", d: "M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" }),
+              e("path", { fill: "none", d: "M0 0h48v48H0z" })
+            ),
+            "Sign in with Google"
+          )
+          : null,
+        e("div", { className: "auth-message" }, msg)
+      );
+
+      const form = e(
+        "form",
+        { className: "login-form", onSubmit: onSubmit },
+        emailGroup,
+        passwordGroup,
+        mode === "signin" ? formRow : null,
+        actionsRow
+      );
+
+      return e(
+        "div",
+        null,
+        e("h2", null, mode === "signin" ? "Login Account" : "Create Account"),
+        mode === "signin"
+          ? e(
+            "p",
+            { className: "muted" },
+            "Don't have an account? ",
+            e("a", { href: "#", onClick: () => setMode("signup") }, "Sign Up")
+          )
+          : e(
+            "p",
+            { className: "muted" },
+            "Already have an account? ",
+            e("a", { href: "#", onClick: () => setMode("signin") }, "Sign In")
+          ),
+        form
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("login-root"));
+    root.render(React.createElement(App));
+  </script>
+</body>
+
+</html>

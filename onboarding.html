@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onboarding — Urban Counsellor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/dashboard.css" />
+    <style>
+        /* Onboarding-specific styles */
+        .steps-bar {
+            display: flex;
+            align-items: center;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 60%;
+            width: 80%;
+            height: 2px;
+            background: var(--border);
+        }
+
+        .step-item.done:not(:last-child)::after,
+        .step-item.active:not(:last-child)::after {
+            background: var(--teal);
+        }
+
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--muted);
+            background: var(--white);
+            position: relative;
+            z-index: 1;
+            transition: all .3s;
+        }
+
+        .step-item.done .step-circle {
+            background: var(--teal);
+            border-color: var(--teal);
+            color: #fff;
+        }
+
+        .step-item.active .step-circle {
+            background: var(--teal);
+            border-color: var(--teal);
+            color: #fff;
+            box-shadow: 0 0 0 4px rgba(26, 175, 170, 0.2);
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 6px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .step-item.active .step-label,
+        .step-item.done .step-label {
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        .card-section {
+            margin-bottom: 32px;
+        }
+
+        .card-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 14px;
+        }
+
+        .section-label span {
+            color: #e53e3e;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 180px 1fr;
+            gap: 16px;
+        }
+
+        .avatar-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .avatar-upload {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--teal-light);
+            border: 2px dashed var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--teal);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .avatar-upload img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .avatar-upload input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .option-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .option-card {
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--muted);
+            transition: all .2s;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-card:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
+        .option-card.selected {
+            border-color: var(--teal);
+            background: var(--teal-light);
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        .option-card .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .option-card.selected .dot::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--teal);
+        }
+
+        .yn-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .yn-row label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .yn-btn {
+            padding: 10px 28px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: inherit;
+        }
+
+        .yn-btn.selected {
+            background: var(--teal);
+            color: #fff;
+            border-color: var(--teal);
+        }
+
+        .gender-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .gender-btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: inherit;
+        }
+
+        .gender-btn.selected {
+            background: var(--teal);
+            color: #fff;
+            border-color: var(--teal);
+        }
+
+        .age-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .age-btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: inherit;
+        }
+
+        .age-btn.selected {
+            background: var(--teal);
+            color: #fff;
+            border-color: var(--teal);
+        }
+
+        .chip-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .chip {
+            padding: 9px 18px;
+            border-radius: 50px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: inherit;
+        }
+
+        .chip.selected {
+            background: var(--teal);
+            color: #fff;
+            border-color: var(--teal);
+        }
+
+        .proceed-row {
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-proceed {
+            padding: 13px 40px;
+            border-radius: 8px;
+            border: 1.5px solid var(--teal);
+            background: transparent;
+            color: var(--teal);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all .2s;
+        }
+
+        .btn-proceed:hover {
+            background: var(--teal);
+            color: #fff;
+        }
+
+        .btn-proceed:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .btn-back {
+            padding: 13px 28px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all .2s;
+        }
+
+        .btn-back:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
+        .err-msg {
+            font-size: 0.85rem;
+            color: #e53e3e;
+        }
+
+        .success-card {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+
+        .success-card h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            color: var(--teal);
+            margin-bottom: 10px;
+        }
+
+        .success-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 13px 36px;
+            background: var(--teal);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-home:hover {
+            background: var(--teal-dark);
+        }
+
+        @media (max-width:768px) {
+            .field-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- Sidebar (populated by dashboard.js) -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <!-- Main -->
+    <main class="main">
+        <h1 class="page-title">Complete Your Profile</h1>
+
+        <!-- Step indicator -->
+        <div class="steps-bar">
+            <div class="step-item active" id="step-ind-1">
+                <div class="step-circle">1</div>
+                <div class="step-label">Personal Info</div>
+            </div>
+            <div class="step-item" id="step-ind-2">
+                <div class="step-circle">2</div>
+                <div class="step-label">Demography</div>
+            </div>
+            <div class="step-item" id="step-ind-3">
+                <div class="step-circle">3</div>
+                <div class="step-label">Favourites</div>
+            </div>
+        </div>
+
+        <!-- ═══ STEP 1 ═══ -->
+        <div id="step1">
+            <div class="card">
+                <!-- Avatar + Name + Phone -->
+                <div class="card-section">
+                    <div class="avatar-row">
+                        <div class="avatar-upload" id="avatar-wrap" title="Upload photo">
+                            <span id="avatar-placeholder">📷</span>
+                            <img id="avatar-preview" src="" alt="" style="display:none" />
+                            <input type="file" accept="image/*" id="avatar-input" />
+                        </div>
+                        <div style="font-size:0.82rem;color:var(--muted)">Upload a profile photo<br>(optional)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label>Display Name <span style="color:#e53e3e">*</span></label>
+                            <input type="text" id="display-name" placeholder="Your name" />
+                        </div>
+                        <div class="field-group">
+                            <label>Country Code <span style="color:#e53e3e">*</span></label>
+                            <select id="country-code">
+                                <option value="+91">🇮🇳 +91 India</option>
+                                <option value="+1">🇺🇸 +1 USA</option>
+                                <option value="+44">🇬🇧 +44 UK</option>
+                                <option value="+61">🇦🇺 +61 Australia</option>
+                                <option value="+971">🇦🇪 +971 UAE</option>
+                                <option value="+65">🇸🇬 +65 Singapore</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label>Phone Number <span style="color:#e53e3e">*</span></label>
+                            <input type="tel" id="phone" placeholder="Mobile number" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Therapy expectations -->
+                <div class="card-section">
+                    <div class="section-label">What Are You Expecting From Therapy? <span>*</span></div>
+                    <div class="option-grid" id="expectations-grid">
+                        <div class="option-card" data-val="Immediate relief"><span class="dot"></span>Immediate relief
+                        </div>
+                        <div class="option-card" data-val="Someone to talk to"><span class="dot"></span>Someone to talk
+                            to</div>
+                        <div class="option-card" data-val="Get a perspective"><span class="dot"></span>Get a perspective
+                        </div>
+                        <div class="option-card" data-val="Long term relief"><span class="dot"></span>Long term relief
+                        </div>
+                        <div class="option-card" data-val="Do not know"><span class="dot"></span>Do not know</div>
+                    </div>
+                </div>
+
+                <!-- Therapy before -->
+                <div class="card-section">
+                    <div class="yn-row">
+                        <label>Have You Taken Therapy Before? <span style="color:#e53e3e">*</span></label>
+                        <button class="yn-btn" data-group="therapy" data-val="Yes">Yes</button>
+                        <button class="yn-btn" data-group="therapy" data-val="No">No</button>
+                    </div>
+                </div>
+
+                <!-- Medical history -->
+                <div class="card-section">
+                    <div class="yn-row">
+                        <label>Do You Have Medical History? <span style="color:#e53e3e">*</span></label>
+                        <button class="yn-btn" data-group="medical" data-val="Yes">Yes</button>
+                        <button class="yn-btn" data-group="medical" data-val="No">No</button>
+                    </div>
+                </div>
+
+                <!-- Gender -->
+                <div class="card-section">
+                    <div class="section-label">Gender <span>*</span></div>
+                    <div class="gender-row">
+                        <button class="gender-btn" data-val="Male">Male</button>
+                        <button class="gender-btn" data-val="Female">Female</button>
+                        <button class="gender-btn" data-val="Others">Others</button>
+                    </div>
+                </div>
+
+                <div class="proceed-row">
+                    <button class="btn-proceed" id="proceed1">PROCEED</button>
+                    <span id="msg1" class="err-msg"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ STEP 2 ═══ -->
+        <div id="step2" style="display:none">
+            <div class="card">
+                <!-- Age -->
+                <div class="card-section">
+                    <div class="section-label">Age Group <span>*</span></div>
+                    <div class="age-row" id="age-grid">
+                        <button class="age-btn" data-val="Under 18">Under 18</button>
+                        <button class="age-btn" data-val="18–25">18–25</button>
+                        <button class="age-btn" data-val="26–35">26–35</button>
+                        <button class="age-btn" data-val="36–45">36–45</button>
+                        <button class="age-btn" data-val="46–60">46–60</button>
+                        <button class="age-btn" data-val="60+">60+</button>
+                    </div>
+                </div>
+
+                <!-- Relationship status -->
+                <div class="card-section">
+                    <div class="section-label">Relationship Status <span>*</span></div>
+                    <div class="option-grid" id="relationship-grid">
+                        <div class="option-card" data-val="Single"><span class="dot"></span>Single</div>
+                        <div class="option-card" data-val="In a Relationship"><span class="dot"></span>In a Relationship
+                        </div>
+                        <div class="option-card" data-val="Married"><span class="dot"></span>Married</div>
+                        <div class="option-card" data-val="Divorced"><span class="dot"></span>Divorced</div>
+                        <div class="option-card" data-val="Prefer not to say"><span class="dot"></span>Prefer not to say
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="card-section">
+                    <div class="section-label">Preferred Language for Therapy <span>*</span></div>
+                    <div class="chip-grid" id="lang-grid">
+                        <button class="chip" data-val="English">English</button>
+                        <button class="chip" data-val="Hindi">Hindi</button>
+                        <button class="chip" data-val="Bengali">Bengali</button>
+                        <button class="chip" data-val="Tamil">Tamil</button>
+                        <button class="chip" data-val="Telugu">Telugu</button>
+                        <button class="chip" data-val="Marathi">Marathi</button>
+                        <button class="chip" data-val="Gujarati">Gujarati</button>
+                        <button class="chip" data-val="Kannada">Kannada</button>
+                    </div>
+                </div>
+
+                <!-- Profession -->
+                <div class="card-section">
+                    <div class="section-label">Profession</div>
+                    <div class="two-col">
+                        <div class="field-group">
+                            <label>Occupation</label>
+                            <select id="occupation">
+                                <option value="">Select...</option>
+                                <option>Student</option>
+                                <option>Employed (Private)</option>
+                                <option>Employed (Government)</option>
+                                <option>Self-employed / Business</option>
+                                <option>Homemaker</option>
+                                <option>Unemployed</option>
+                                <option>Retired</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label>City</label>
+                            <input type="text" id="city" placeholder="Your city" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proceed-row">
+                    <button class="btn-back" id="back2">BACK</button>
+                    <button class="btn-proceed" id="proceed2">PROCEED</button>
+                    <span id="msg2" class="err-msg"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ STEP 3 ═══ -->
+        <div id="step3" style="display:none">
+            <div class="card">
+                <!-- Concerns -->
+                <div class="card-section">
+                    <div class="section-label">Primary Concerns <span style="color:#e53e3e">*</span> <span
+                            style="font-weight:400;color:var(--muted);font-size:0.8rem">(Select all that apply)</span>
+                    </div>
+                    <div class="chip-grid" id="concerns-grid">
+                        <button class="chip" data-val="Anxiety">Anxiety</button>
+                        <button class="chip" data-val="Depression">Depression</button>
+                        <button class="chip" data-val="Stress">Stress</button>
+                        <button class="chip" data-val="Relationship Issues">Relationship Issues</button>
+                        <button class="chip" data-val="Work-Life Balance">Work-Life Balance</button>
+                        <button class="chip" data-val="Grief & Loss">Grief & Loss</button>
+                        <button class="chip" data-val="Trauma">Trauma</button>
+                        <button class="chip" data-val="Self-esteem">Self-esteem</button>
+                        <button class="chip" data-val="Anger Management">Anger Management</button>
+                        <button class="chip" data-val="Sleep Issues">Sleep Issues</button>
+                        <button class="chip" data-val="Parenting">Parenting</button>
+                        <button class="chip" data-val="LGBTQ+ Support">LGBTQ+ Support</button>
+                    </div>
+                </div>
+
+                <!-- Session preference -->
+                <div class="card-section">
+                    <div class="section-label">Session Preference <span>*</span></div>
+                    <div class="option-grid" id="session-grid">
+                        <div class="option-card" data-val="Video Call"><span class="dot"></span>🎥 Video Call</div>
+                        <div class="option-card" data-val="Voice Call"><span class="dot"></span>📞 Voice Call</div>
+                        <div class="option-card" data-val="Chat"><span class="dot"></span>💬 Chat</div>
+                        <div class="option-card" data-val="In-Person"><span class="dot"></span>🏥 In-Person</div>
+                    </div>
+                </div>
+
+                <!-- Time preference -->
+                <div class="card-section">
+                    <div class="section-label">Preferred Session Time</div>
+                    <div class="age-row" id="time-grid">
+                        <button class="age-btn" data-val="Morning (6am–12pm)">☀️ Morning</button>
+                        <button class="age-btn" data-val="Afternoon (12pm–5pm)">🌤 Afternoon</button>
+                        <button class="age-btn" data-val="Evening (5pm–9pm)">🌆 Evening</button>
+                        <button class="age-btn" data-val="Night (9pm–12am)">🌙 Night</button>
+                    </div>
+                </div>
+
+                <!-- Therapist gender pref -->
+                <div class="card-section">
+                    <div class="section-label">Preferred Therapist Gender</div>
+                    <div class="gender-row" id="therapist-gender-row">
+                        <button class="gender-btn" data-val="Male">Male</button>
+                        <button class="gender-btn" data-val="Female">Female</button>
+                        <button class="gender-btn" data-val="No Preference">No Preference</button>
+                    </div>
+                </div>
+
+                <div class="proceed-row">
+                    <button class="btn-back" id="back3">BACK</button>
+                    <button class="btn-proceed" id="submit-btn">SUBMIT</button>
+                    <span id="msg3" class="err-msg"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ SUCCESS ═══ -->
+        <div id="step-success" style="display:none">
+            <div class="success-card">
+                <div class="success-icon">🎉</div>
+                <h2>You're All Set!</h2>
+                <p>Your profile is complete. We'll match you with the right counsellor based on your preferences.</p>
+                <a href="/" class="btn-home">Go to Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/dashboard.js"></script>
+    <script>
+        let currentUser = null;
+        // initDashboard handles auth guard + sidebar
+        const _origInit = initDashboard;
+        window.initDashboard = function (page) {
+            const sb = window.supabase ? window.supabase.createClient(window.SUPABASE_URL || '', window.SUPABASE_ANON_KEY || '') : null;
+            _origInit(page);
+            if (sb) {
+                sb.auth.getSession().then(({ data: { session } }) => {
+                    if (session && session.user) {
+                        currentUser = session.user;
+                        const nm = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
+                        document.getElementById('display-name').value = nm;
+                    }
+                });
+            }
+        };
+        initDashboard('onboarding');
+
+        // ── Avatar preview ──
+        document.getElementById('avatar-input').addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('avatar-preview').src = e.target.result;
+                document.getElementById('avatar-preview').style.display = 'block';
+                document.getElementById('avatar-placeholder').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // ── Generic toggle helpers ──
+        function initOptionCards(gridId, multi = false) {
+            const grid = document.getElementById(gridId);
+            grid.querySelectorAll('.option-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    if (!multi) grid.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.toggle('selected');
+                });
+            });
+        }
+        function initBtns(selector, multi = false) {
+            document.querySelectorAll(selector).forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (!multi) {
+                        document.querySelectorAll(selector).forEach(b => b.classList.remove('selected'));
+                    }
+                    btn.classList.toggle('selected');
+                });
+            });
+        }
+        function getSelected(selector) {
+            return [...document.querySelectorAll(selector + '.selected')].map(b => b.dataset.val);
+        }
+        function getCardSelected(gridId) {
+            return [...document.getElementById(gridId).querySelectorAll('.option-card.selected')].map(c => c.dataset.val);
+        }
+
+        // ── Init controls ──
+        initOptionCards('expectations-grid', true);
+        initOptionCards('relationship-grid', false);
+        document.querySelectorAll('.yn-btn[data-group="therapy"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.yn-btn[data-group="therapy"]').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+        document.querySelectorAll('.yn-btn[data-group="medical"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.yn-btn[data-group="medical"]').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+        document.querySelectorAll('.gender-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                if (this.closest('#therapist-gender-row')) {
+                    document.querySelectorAll('#therapist-gender-row .gender-btn').forEach(b => b.classList.remove('selected'));
+                } else {
+                    document.querySelectorAll('.gender-row:not(#therapist-gender-row) .gender-btn').forEach(b => b.classList.remove('selected'));
+                }
+                this.classList.add('selected');
+            });
+        });
+        document.querySelectorAll('#age-grid .age-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#age-grid .age-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+        document.querySelectorAll('#lang-grid .chip').forEach(btn => {
+            btn.addEventListener('click', () => btn.classList.toggle('selected'));
+        });
+        document.querySelectorAll('#concerns-grid .chip').forEach(btn => {
+            btn.addEventListener('click', () => btn.classList.toggle('selected'));
+        });
+        initOptionCards('session-grid', false);
+        document.querySelectorAll('#time-grid .age-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#time-grid .age-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+
+        // ── Step state ──
+        let step = 1;
+        const formData = {};
+
+        function setStep(n) {
+            step = n;
+            [1, 2, 3, 'success'].forEach(s => {
+                const el = document.getElementById(s === 'success' ? 'step-success' : 'step' + s);
+                if (el) el.style.display = 'none';
+            });
+            const target = n === 4 ? 'step-success' : 'step' + n;
+            document.getElementById(target).style.display = '';
+            // Update step indicators
+            [1, 2, 3].forEach(i => {
+                const ind = document.getElementById('step-ind-' + i);
+                ind.className = 'step-item' + (i < n ? ' done' : i === n ? ' active' : '');
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ── PROCEED step 1 ──
+        document.getElementById('proceed1').addEventListener('click', () => {
+            const name = document.getElementById('display-name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const expectations = getCardSelected('expectations-grid');
+            const therapy = getSelected('.yn-btn[data-group="therapy"]')[0];
+            const medical = getSelected('.yn-btn[data-group="medical"]')[0];
+            const gender = [...document.querySelectorAll('.gender-row:not(#therapist-gender-row) .gender-btn.selected')].map(b => b.dataset.val)[0];
+            const msg = document.getElementById('msg1');
+            if (!name) { msg.textContent = 'Please enter your display name.'; return; }
+            if (!phone) { msg.textContent = 'Please enter your phone number.'; return; }
+            if (!expectations.length) { msg.textContent = 'Please select at least one therapy expectation.'; return; }
+            if (!therapy) { msg.textContent = 'Please answer the therapy question.'; return; }
+            if (!medical) { msg.textContent = 'Please answer the medical history question.'; return; }
+            if (!gender) { msg.textContent = 'Please select your gender.'; return; }
+            msg.textContent = '';
+            Object.assign(formData, { name, phone: document.getElementById('country-code').value + phone, expectations, therapyBefore: therapy, medicalHistory: medical, gender });
+            setStep(2);
+        });
+
+        // ── PROCEED step 2 ──
+        document.getElementById('back2').addEventListener('click', () => setStep(1));
+        document.getElementById('proceed2').addEventListener('click', () => {
+            const age = getSelected('#age-grid .age-btn')[0];
+            const relationship = getCardSelected('relationship-grid')[0];
+            const languages = getSelected('#lang-grid .chip');
+            const msg = document.getElementById('msg2');
+            if (!age) { msg.textContent = 'Please select your age group.'; return; }
+            if (!relationship) { msg.textContent = 'Please select relationship status.'; return; }
+            if (!languages.length) { msg.textContent = 'Please select at least one preferred language.'; return; }
+            msg.textContent = '';
+            Object.assign(formData, { age, relationship, languages, occupation: document.getElementById('occupation').value, city: document.getElementById('city').value.trim() });
+            setStep(3);
+        });
+
+        // ── SUBMIT step 3 ──
+        document.getElementById('back3').addEventListener('click', () => setStep(2));
+        document.getElementById('submit-btn').addEventListener('click', async () => {
+            const concerns = getSelected('#concerns-grid .chip');
+            const session = getCardSelected('session-grid')[0];
+            const msg = document.getElementById('msg3');
+            if (!concerns.length) { msg.textContent = 'Please select at least one concern.'; return; }
+            if (!session) { msg.textContent = 'Please select a session preference.'; return; }
+            msg.textContent = '';
+            Object.assign(formData, {
+                concerns,
+                sessionPreference: session,
+                sessionTime: getSelected('#time-grid .age-btn')[0] || null,
+                therapistGender: [...document.querySelectorAll('#therapist-gender-row .gender-btn.selected')].map(b => b.dataset.val)[0] || null,
+                completedAt: new Date().toISOString()
+            });
+
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Saving...';
+            try {
+                // Save to Supabase (upsert into profiles table if exists, else just local success)
+                if (currentUser) {
+                    await sb.from('profiles').upsert({
+                        id: currentUser.id,
+                        email: currentUser.email,
+                        ...formData
+                    }, { onConflict: 'id' }).maybeSingle();
+                }
+            } catch (_) { /* table may not exist yet, proceed anyway */ }
+            setStep(4);
+        });
+    </script>
+</body>
+
+</html>

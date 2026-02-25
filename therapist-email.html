@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Therapist Email — Urban Counsellor</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/dashboard.css" />
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main">
+        <h1 class="page-title">Therapist Email</h1>
+        <div class="card">
+            <div class="card-toolbar">
+                <button class="btn-teal" id="compose-btn">✉️ Compose New Message</button>
+            </div>
+            <div id="compose-form" style="display:none" class="compose-box">
+                <div class="field-group"><label>Subject</label><input type="text" id="email-subject"
+                        placeholder="e.g. Session follow-up" /></div>
+                <div class="field-group"><label>Message</label><textarea id="email-body" rows="5"
+                        placeholder="Write your message to your therapist..."></textarea></div>
+                <div class="form-actions">
+                    <button class="btn-teal" id="send-btn">Send Message</button>
+                    <button class="btn-ghost" id="cancel-btn">Cancel</button>
+                </div>
+                <div id="email-msg" class="info-msg"></div>
+            </div>
+            <div class="thread-list" id="thread-list">
+                <div class="empty-state">🗂️<p>No messages yet. Click <strong>Compose</strong> to send your first
+                        message to your therapist.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/dashboard.js"></script>
+    <script>
+        initDashboard('therapist-email');
+        document.getElementById('compose-btn').addEventListener('click', () => {
+            const f = document.getElementById('compose-form');
+            f.style.display = f.style.display === 'none' ? '' : 'none';
+        });
+        document.getElementById('cancel-btn').addEventListener('click', () => {
+            document.getElementById('compose-form').style.display = 'none';
+        });
+        document.getElementById('send-btn').addEventListener('click', () => {
+            const subject = document.getElementById('email-subject').value.trim();
+            const body = document.getElementById('email-body').value.trim();
+            const msg = document.getElementById('email-msg');
+            if (!subject || !body) { msg.textContent = 'Please fill in both fields.'; msg.style.color = '#e53e3e'; return; }
+            // Add to thread list
+            const list = document.getElementById('thread-list');
+            list.querySelector('.empty-state')?.remove();
+            const item = document.createElement('div');
+            item.className = 'thread-item';
+            item.innerHTML = `<div class="thread-subject">${subject}</div><div class="thread-preview">${body.substring(0, 100)}${body.length > 100 ? '…' : ''}</div><div class="thread-meta">Just now · Sent</div>`;
+            list.prepend(item);
+            document.getElementById('email-subject').value = '';
+            document.getElementById('email-body').value = '';
+            document.getElementById('compose-form').style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>

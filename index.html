@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URBAN COUNSELLOR — Online Counseling Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script>
+    if (window.location.protocol === 'file:') {
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (a && a.getAttribute('href')) {
+          let href = a.getAttribute('href');
+          if (href.startsWith('http') || href.startsWith('#')) return;
+          if (href.startsWith('/services/')) {
+            e.preventDefault();
+            const slug = href.split('/').filter(Boolean).pop();
+            window.location.href = './service-category.html?id=' + slug;
+          } else if (href.startsWith('/support/')) {
+            e.preventDefault();
+            const slug = href.split('/').filter(Boolean).pop();
+            window.location.href = './service-details.html?id=' + slug;
+          } else if (href.startsWith('/') && href.length > 1) {
+            e.preventDefault();
+            const page = href.split('/')[1];
+            window.location.href = './' + page + '.html';
+          } else if (href === '/') {
+            e.preventDefault();
+            window.location.href = './index.html';
+          }
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div class="promo-bar">
+    <span>Get 10% Off On Your First Therapy Plan</span>
+    <div class="promo-code">
+      <span>BETTER10</span>
+      <button class="btn btn-outline btn-small">Click To Copy</button>
+    </div>
+  </div>
+
+  <header class="hero" id="top">
+    <nav class="nav">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">URBAN COUNSELLOR</span>
+      </div>
+      <div class="nav-links">
+        <a href="/our-story">Our Story</a>
+        <div class="nav-dropdown">
+          <a href="/services">Services <span class="nav-caret">▼</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/services/relationship-counselling">Relationship Counselling</a>
+            <a href="/services/stress-anxiety-depression">Stress Anxiety Depression</a>
+            <a href="/services/confidence">Confidence</a>
+            <a href="/services/trauma">Trauma</a>
+            <a href="/services/lgbtq">LGBTQ+</a>
+            <a href="/services/lifestyle-issues">Lifestyle Issues</a>
+            <a href="/services/women-centric-challenges">Women Centric Challenges</a>
+            <a href="/services/managing-workplace">Managing Workplace</a>
+            <a href="/services/parenting">Parenting</a>
+            <a href="/services/adhd">ADHD</a>
+            <a href="/services/psychiatric-support">Psychiatric Support</a>
+          </div>
+        </div>
+        <a href="/#articles">Articles</a>
+        <a href="/counsellors">Counsellors</a>
+        <a href="/#reviews">Reviews</a>
+      </div>
+      <div class="nav-actions" id="nav-actions">
+        <button class="btn btn-primary" id="nav-get-started" onclick="location.href='/pricing'">Get Started</button>
+        <a class="nav-link" id="nav-signin" href="/signin">Sign In</a>
+      </div>
+    </nav>
+
+    <div class="hero-center">
+      <h1>Assess Your Mental Health & Wellness</h1>
+      <h2>Quick & Insightful</h2>
+      <button class="btn btn-primary btn-large" onclick="location.href='/assessment'">Start Test</button>
+      <div class="hero-dots">
+        <span></span>
+        <span class="active"></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="logo-row">
+      <img src="./assets/logos/hindustan-times.svg" alt="Hindustan Times" />
+      <img src="./assets/logos/india-today.png" alt="India Today" />
+      <img src="./assets/logos/mint.svg" alt="mint" />
+      <img src="./assets/logos/businessworld.png" alt="BW Businessworld" />
+      <img src="./assets/logos/people-magazine.svg" alt="People" />
+      <img src="./assets/logos/people-matters.png" alt="people matters" />
+      <img src="./assets/logos/indian-express.svg" alt="The Indian Express" />
+    </div>
+  </header>
+
+  <section id="story" class="section story">
+    <div class="story-grid">
+      <div class="story-media">
+        <img id="featured-img"
+          src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80"
+          alt="Individual therapy" />
+        <div class="story-dots">
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="story-text">
+        <h3>Urban Counsellor Featured</h3>
+        <p>
+          Urban Counsellor stands as a pioneer in providing quality online
+          therapy, counseling, and psychiatric services. Our mission is to
+          normalize mental health support through accessible digital care.
+        </p>
+        <p>
+          With trusted professionals and a focus on confidentiality, we help
+          individuals and organizations build resilience and thrive.
+        </p>
+        <button class="btn btn-primary">Get Stronger Now</button>
+        <div class="story-logos">
+          <img src="./assets/logos/india-today.png" alt="India Today" />
+          <img src="./assets/logos/mint.svg" alt="mint" />
+          <img src="./assets/logos/people-matters.png" alt="people matters" />
+          <img src="./assets/logos/indian-express.svg" alt="The Indian Express" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offer">
+    <div class="offer-card">
+      <h3>Unlock Your Wellbeing With Urban Counsellor</h3>
+      <p>Get 10% Off On Your First Therapy Plan</p>
+      <div class="offer-action">
+        <span class="offer-code">BETTER10</span>
+        <button class="btn btn-outline btn-small">Click To Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="improves" class="section improves">
+    <h2>What Improves With Therapy</h2>
+    <div class="improves-grid">
+      <article class="improve-card">
+        <img src="https://images.pexels.com/photos/3692736/pexels-photo-3692736.jpeg?auto=compress&cs=tinysrgb&w=900"
+          alt="Relationship & marriage counseling" referrerpolicy="no-referrer"
+          onerror="this.onerror=null; this.src='https://placehold.co/900x600?text=Relationships+%26+Marriage+Counseling';" />
+        <h3>Relationship & Marriage Counseling</h3>
+        <p>
+          Strengthen communication, resolve conflicts, and build healthy bonds
+          with your partner and family.
+        </p>
+      </article>
+      <article class="improve-card">
+        <img src="https://images.unsplash.com/photo-1524503033411-c9566986fc8f?auto=format&fit=crop&w=900&q=80"
+          alt="Confidence" />
+        <h3>Confidence</h3>
+        <p>
+          Feeling judged by others? Online counseling can help you grow your
+          confidence.
+        </p>
+      </article>
+      <article class="improve-card">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80"
+          alt="Stress" />
+        <h3>Stress</h3>
+        <p>
+          Our experts help you cope, manage, and find a calmer path forward.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="help" class="section help">
+    <div class="help-grid">
+      <div class="help-visual">
+        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=900&q=80"
+          alt="Meditation illustration" />
+      </div>
+      <div class="help-text">
+        <h2>How Online Therapy Helps</h2>
+        <p>
+          The first and foremost purpose of online therapy is to give you a
+          safe space for disclosure. In your online therapy journey, you will
+          know what an uninterrupted conversation feels like. It is easier to
+          open up because you feel not judged but understood.
+        </p>
+        <p>
+          Further, online counselling helps identify triggers for your
+          emotions and allows you to discover your deep-rooted concerns. With
+          trusted counselor guidance and practical tools, you will feel
+          better, happier, and stronger at every step.
+        </p>
+        <button class="btn btn-primary">Start Therapy</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section services">
+    <div class="section-heading">
+      <h2>We Help With</h2>
+      <p>Select a category below to explore how our counselors can support you.</p>
+    </div>
+    <div class="service-category-card">
+      <div class="service-category-header">
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
+          alt="Mental Healthcare Services" class="service-cat-img" />
+        <div class="service-cat-text">
+          <h3>Mental Healthcare</h3>
+          <p>There are times when going gets tough, and anything and everything one does may end up making them feel
+            more stressed. With counseling, you can learn to identify unhealthy thoughts and behavioral patterns.
+            Counselling provides a safe space to talk about your concerns and allows you to develop healthy coping
+            mechanisms.</p>
+        </div>
+      </div>
+
+      <div class="service-links-grid">
+        <a href="/services" class="service-link-pill">
+          <span>Relationship Counselling</span>
+          <div class="service-arrow">➔</div>
+        </a>
+        <a href="/services" class="service-link-pill">
+          <span>Stress Anxiety Depression</span>
+          <div class="service-arrow">➔</div>
+        </a>
+        <a href="/services" class="service-link-pill">
+          <span>Confidence</span>
+          <div class="service-arrow">➔</div>
+        </a>
+        <a href="/services" class="service-link-pill">
+          <span>Trauma</span>
+          <div class="service-arrow">➔</div>
+        </a>
+        <a href="/services" class="service-link-pill">
+          <span>LGBTQ+</span>
+          <div class="service-arrow">➔</div>
+        </a>
+        <a href="/services" class="service-link-pill">
+          <span>Lifestyle Issues</span>
+          <div class="service-arrow">➔</div>
+        </a>
+        <a href="/services" class="service-link-pill">
+          <span>View all 50+ areas we help with</span>
+          <div class="service-arrow">➔</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="articles" class="section articles">
+    <div class="section-heading">
+      <h2>Articles From Our Expert Therapists</h2>
+    </div>
+    <div class="article-nav">
+      <button class="arrow-btn">‹</button>
+      <button class="arrow-btn">›</button>
+    </div>
+    <div class="article-grid">
+      <article class="article-card">
+        <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=900&q=80"
+          alt="How to Forget Someone You Love" />
+        <h3>How to Forget Someone You Love</h3>
+        <a href="#">Read Article →</a>
+      </article>
+      <article class="article-card">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80"
+          alt="Building Urban Counsellor" />
+        <h3>Building Urban Counsellor: A Journey in Empathy</h3>
+        <a href="#">Read Article →</a>
+      </article>
+      <article class="article-card">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80"
+          alt="Responsible mental health care" />
+        <h3>What Responsible Mental Health Care Looks Like</h3>
+        <a href="#">Read Article →</a>
+      </article>
+    </div>
+    <button class="btn btn-primary article-btn">View More</button>
+  </section>
+
+  <section class="cta-banner">
+    <div class="cta-card">
+      <div>
+        <h2>Not Sure Where To Start?</h2>
+        <p>Take a Free Test & Get Immediate Result</p>
+        <button class="btn btn-primary btn-small">Start Free Assessment</button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80"
+        alt="Comfortable counseling space" />
+    </div>
+  </section>
+
+  <section id="therapists" class="section therapists">
+    <div class="section-heading">
+      <h2>Meet Our Counsellors</h2>
+    </div>
+    <div class="therapist-grid">
+      <article class="therapist-card">
+        <div class="therapist-top">
+          <span>Clinical Psychologist</span>
+        </div>
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80"
+          alt="Jincy Mol G" />
+        <h3>Jincy Mol G</h3>
+        <p>MSc Clinical Psychology</p>
+        <div class="tag-row">
+          <span>Workplace</span>
+          <span>Anxiety</span>
+          <span>Relationships</span>
+        </div>
+        <button class="btn btn-outline dark">View Profile</button>
+      </article>
+      <article class="therapist-card">
+        <div class="therapist-top">
+          <span>MA in Psychology</span>
+        </div>
+        <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=400&q=80"
+          alt="Sanna" />
+        <h3>Sanna</h3>
+        <p>MA in Psychology</p>
+        <div class="tag-row">
+          <span>Emotional Regulation</span>
+          <span>Depression</span>
+          <span>Confidence</span>
+        </div>
+        <button class="btn btn-outline dark">View Profile</button>
+      </article>
+      <article class="therapist-card">
+        <div class="therapist-top">
+          <span>MPhil Clinical Psychology</span>
+        </div>
+        <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=400&q=80"
+          alt="Varsha" />
+        <h3>Varsha</h3>
+        <p>MPhil Clinical Psychology</p>
+        <div class="tag-row">
+          <span>ADHD</span>
+          <span>Stress</span>
+          <span>Grief</span>
+        </div>
+        <button class="btn btn-outline dark">View Profile</button>
+      </article>
+    </div>
+    <button class="btn btn-outline dark center-btn">View All Counsellors</button>
+  </section>
+
+  <section class="cta-wide">
+    <div class="cta-wide-card">
+      <h2>Not Sure How To Find The Best Counsellor For Yourself?</h2>
+      <button class="btn btn-primary btn-small">Find My Match</button>
+    </div>
+  </section>
+
+  <section class="cta-banner light">
+    <div class="cta-card">
+      <div>
+        <h2>Not Ready To Talk Yet?</h2>
+        <p>Register now & start a self-help program for free worth ₹500/-</p>
+        <button class="btn btn-primary btn-small">Get Started</button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=900&q=80"
+        alt="Self help program" />
+    </div>
+  </section>
+
+  <section class="section quality">
+    <div class="quality-grid">
+      <div class="quality-text">
+        <h2>Therapy Is As Good As Your Therapist</h2>
+        <div class="quality-block">
+          <h3>Qualified & Trained Psychologists Only</h3>
+          <p>
+            Our counselors hold advanced degrees and undergo rigorous training
+            with continuous supervision.
+          </p>
+        </div>
+        <div class="quality-block">
+          <h3>Choose Your Mental Health Expert</h3>
+          <p>
+            Explore profiles, expertise, and language support to find your
+            best fit.
+          </p>
+        </div>
+      </div>
+      <div class="quality-media">
+        <img src="https://images.unsplash.com/photo-1510022212292-e93206f2d776?auto=format&fit=crop&w=400&q=80"
+          alt="Therapist session" />
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=400&q=80"
+          alt="Therapist session" />
+        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0a?auto=format&fit=crop&w=400&q=80"
+          alt="Therapist session" />
+        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=400&q=80"
+          alt="Therapist session" />
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner referral">
+    <div class="cta-card">
+      <div>
+        <h2>Refer & Grow With Urban Counsellor</h2>
+        <p>1 Free Session with every successful referral</p>
+        <button class="btn btn-primary btn-small">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-bar">
+    <div class="stat-item">
+      <h3>3 Lakh+</h3>
+      <p>Sessions Delivered</p>
+    </div>
+    <div class="stat-item">
+      <h3>70%</h3>
+      <p>Repeat Clients</p>
+    </div>
+    <div class="stat-item">
+      <h3>100+</h3>
+      <p>Corporate Partners</p>
+    </div>
+    <div class="stat-item">
+      <h3>100%</h3>
+      <p>Confidential</p>
+    </div>
+  </section>
+
+  <section id="reviews" class="section reviews">
+    <div class="section-heading">
+      <h2>Urban Counsellor Online Counselling Reviews</h2>
+    </div>
+    <div class="review-grid">
+      <article class="review-card">
+        <h3>Kaushya Shirsat</h3>
+        <p>
+          “My sessions helped me feel calm and confident again. The counselor
+          was empathetic and practical.”
+        </p>
+      </article>
+      <article class="review-card">
+        <h3>Krishna Iyer</h3>
+        <p>
+          “The platform felt safe and easy to use. I received support exactly
+          when I needed it.”
+        </p>
+      </article>
+      <article class="review-card">
+        <h3>Tanvi Sharma</h3>
+        <p>
+          “Highly recommend Urban Counsellor. The sessions helped me reset
+          and feel understood.”
+        </p>
+      </article>
+    </div>
+    <button class="btn btn-outline dark center-btn">Load More</button>
+  </section>
+
+  <aside class="float-actions">
+    <button class="float-btn" onclick="location.href='/onboarding'">Book Session</button>
+    <button class="float-btn">Chat</button>
+    <button class="float-btn">Call</button>
+  </aside>
+
+  <footer class="footer">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">URBAN COUNSELLOR</span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Support</a>
+    </div>
+    <span class="footer-copy">© 2026 Urban Counsellor. All rights reserved.</span>
+  </footer>
+  <style>
+    .nav-profile {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--teal, #1aafaa);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      transition: box-shadow .2s;
+    }
+
+    .nav-avatar:hover {
+      box-shadow: 0 0 0 3px rgba(26, 175, 170, 0.35);
+    }
+
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      min-width: 200px;
+      padding: 12px 0;
+      z-index: 999;
+    }
+
+    .profile-dropdown.open {
+      display: block;
+    }
+
+    .profile-dropdown .pd-email {
+      padding: 8px 18px 10px;
+      font-size: 0.82rem;
+      color: #666;
+      border-bottom: 1px solid #f0f0f0;
+      word-break: break-all;
+    }
+
+    .profile-dropdown .pd-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 18px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #e53e3e;
+      font-weight: 600;
+      transition: background .15s;
+    }
+
+    .profile-dropdown .pd-btn:hover {
+      background: #fff5f5;
+    }
+  </style>
+  <script>
+    const featuredImages = [
+      { src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80", alt: "Individual therapy" },
+      { src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80", alt: "Relationship & marriage counseling" },
+      { src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80", alt: "Career counseling" },
+      { src: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80", alt: "Stress & anxiety management" },
+      { src: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=900&q=80", alt: "Online therapy sessions" }
+    ];
+    const featuredImg = document.getElementById("featured-img");
+    const storyDots = document.querySelectorAll(".story-dots span");
+    let fi = 0;
+    function renderFeatured() {
+      featuredImg.src = featuredImages[fi].src;
+      featuredImg.alt = featuredImages[fi].alt;
+      storyDots.forEach((d, i) => d.classList.toggle("active", i === fi));
+    }
+    renderFeatured();
+    setInterval(() => {
+      fi = (fi + 1) % featuredImages.length;
+      renderFeatured();
+    }, 1000);
+    const backups = {
+      Relationships: "https://images.unsplash.com/photo-1519741491153-0f4a6c1a3bc5?auto=format&fit=crop&w=900&q=80",
+      "Stress & anxiety management": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=80",
+      "Therapist session": "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=400&q=80",
+      Confidence: "https://images.unsplash.com/photo-1512686096451-a15c19314b05?auto=format&fit=crop&w=900&q=80",
+      "Meditation illustration": "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=900&q=80"
+    };
+    document.querySelectorAll("img").forEach((img) => {
+      img.addEventListener(
+        "error",
+        () => {
+          const a = img.alt || "";
+          let key = null;
+          if (a.includes("Relationship")) key = "Relationships";
+          else if (a.includes("Stress")) key = "Stress & anxiety management";
+          else if (a.includes("Therapist")) key = "Therapist session";
+          else if (a.includes("Confidence")) key = "Confidence";
+          else if (a.includes("Meditation")) key = "Meditation illustration";
+          if (key && backups[key]) {
+            img.src = backups[key];
+          }
+        },
+        { once: true }
+      );
+    });
+  </script>
+  <script src="/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (async () => {
+      const url = window.SUPABASE_URL || '';
+      const key = window.SUPABASE_ANON_KEY || '';
+      if (!url || !key) return;
+      const sb = window.supabase.createClient(url, key);
+
+      function renderLoggedIn(email) {
+        const initial = (email || 'U')[0].toUpperCase();
+        const actions = document.getElementById('nav-actions');
+        actions.innerHTML = `
+            <div class="nav-profile" id="nav-profile">
+              <div class="nav-avatar" id="nav-avatar" title="${email}">${initial}</div>
+              <div class="profile-dropdown" id="profile-dropdown">
+                <div class="pd-email">${email}</div>
+                <button class="pd-btn" id="pd-signout">Sign Out</button>
+              </div>
+            </div>`;
+        document.getElementById('nav-avatar').addEventListener('click', (e) => {
+          e.stopPropagation();
+          document.getElementById('profile-dropdown').classList.toggle('open');
+        });
+        document.addEventListener('click', () => {
+          const dd = document.getElementById('profile-dropdown');
+          if (dd) dd.classList.remove('open');
+        });
+        document.getElementById('pd-signout').addEventListener('click', async () => {
+          await sb.auth.signOut();
+          window.location.reload();
+        });
+      }
+
+      function renderLoggedOut() {
+        const actions = document.getElementById('nav-actions');
+        actions.innerHTML = `
+            <button class="btn btn-primary" onclick="location.href='/pricing'">Get Started</button>
+            <a class="nav-link" href="/signin">Sign In</a>`;
+      }
+
+      const { data: { session } } = await sb.auth.getSession();
+      if (session && session.user) {
+        renderLoggedIn(session.user.email);
+      } else {
+        renderLoggedOut();
+      }
+
+      sb.auth.onAuthStateChange((_event, session) => {
+        if (session && session.user) renderLoggedIn(session.user.email);
+        else renderLoggedOut();
+      });
+    })();
+  </script>
+</body>
+
+</html>

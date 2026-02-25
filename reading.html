@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reading — Urban Counsellor</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/dashboard.css" />
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main">
+        <h1 class="page-title">Reading & Resources</h1>
+        <div class="tab-bar">
+            <button class="tab-btn active" data-tab="articles">Articles</button>
+            <button class="tab-btn" data-tab="guides">Guides</button>
+            <button class="tab-btn" data-tab="videos">Videos</button>
+        </div>
+
+        <div id="tab-articles" class="tab-content">
+            <div class="article-grid">
+                <div class="read-card">
+                    <div class="read-tag">Anxiety</div>
+                    <h3>How to Stop Overthinking: 10 Evidence-Based Strategies</h3>
+                    <p>Overthinking can trap you in a loop of negativity. Here's how to break free using proven
+                        cognitive techniques.</p>
+                    <div class="read-meta">📖 5 min read · Dr. Jincy Mol</div>
+                    <button class="btn-teal-sm">Read Article</button>
+                </div>
+                <div class="read-card">
+                    <div class="read-tag">Relationships</div>
+                    <h3>Understanding Attachment Styles and How They Affect You</h3>
+                    <p>Your early relationships shape how you bond with others. Learn your attachment style and how to
+                        heal.</p>
+                    <div class="read-meta">📖 7 min read · Sanna</div>
+                    <button class="btn-teal-sm">Read Article</button>
+                </div>
+                <div class="read-card">
+                    <div class="read-tag">Self-care</div>
+                    <h3>The Science of Gratitude: Why Thankfulness Boosts Wellbeing</h3>
+                    <p>Research shows that a daily gratitude practice can significantly lower stress and increase
+                        happiness.</p>
+                    <div class="read-meta">📖 4 min read · Varsha</div>
+                    <button class="btn-teal-sm">Read Article</button>
+                </div>
+                <div class="read-card">
+                    <div class="read-tag">Depression</div>
+                    <h3>Recognising the Early Signs of Depression</h3>
+                    <p>Depression doesn't always look like sadness. Learn the subtle signs and when to seek help.</p>
+                    <div class="read-meta">📖 6 min read · Dr. Jincy Mol</div>
+                    <button class="btn-teal-sm">Read Article</button>
+                </div>
+                <div class="read-card">
+                    <div class="read-tag">Mindfulness</div>
+                    <h3>5-Minute Mindfulness Practices for Busy People</h3>
+                    <p>No time for long meditation? These quick practices fit into any schedule and deliver real
+                        results.</p>
+                    <div class="read-meta">📖 3 min read · Sanna</div>
+                    <button class="btn-teal-sm">Read Article</button>
+                </div>
+                <div class="read-card">
+                    <div class="read-tag">Work</div>
+                    <h3>Burnout vs. Stress: How to Tell the Difference</h3>
+                    <p>Both burnout and stress feel exhausting — but they require very different responses. Here's how
+                        to tell them apart.</p>
+                    <div class="read-meta">📖 5 min read · Varsha</div>
+                    <button class="btn-teal-sm">Read Article</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-guides" class="tab-content" style="display:none">
+            <div class="article-grid">
+                <div class="read-card highlight">
+                    <div class="read-tag">Guide</div>
+                    <h3>📘 The Complete Guide to Starting Therapy</h3>
+                    <p>Everything you need to know before your first session — what to expect, how to prepare, and how
+                        to get the most out of it.</p>
+                    <button class="btn-teal-sm">Download Guide</button>
+                </div>
+                <div class="read-card highlight">
+                    <div class="read-tag">Guide</div>
+                    <h3>📗 Coping with Anxiety: A Step-by-Step Workbook</h3>
+                    <p>A printable workbook with CBT exercises, thought records, and exposure hierarchies.</p>
+                    <button class="btn-teal-sm">Download Guide</button>
+                </div>
+                <div class="read-card highlight">
+                    <div class="read-tag">Guide</div>
+                    <h3>📙 Sleep Hygiene Checklist</h3>
+                    <p>A simple, actionable checklist to transform your sleep quality in 2 weeks.</p>
+                    <button class="btn-teal-sm">Download Guide</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-videos" class="tab-content" style="display:none">
+            <div class="article-grid">
+                <div class="read-card">
+                    <div class="read-tag video-tag">🎥 Video</div>
+                    <h3>Box Breathing for Instant Calm</h3>
+                    <p>A 4-minute guided breathing exercise to reduce anxiety and stress instantly.</p>
+                    <div class="video-thumb">▶</div>
+                    <button class="btn-teal-sm">Watch Now</button>
+                </div>
+                <div class="read-card">
+                    <div class="read-tag video-tag">🎥 Video</div>
+                    <h3>Progressive Muscle Relaxation</h3>
+                    <p>A guided 10-minute body scan to release physical tension held in the body.</p>
+                    <div class="video-thumb">▶</div>
+                    <button class="btn-teal-sm">Watch Now</button>
+                </div>
+                <div class="read-card">
+                    <div class="read-tag video-tag">🎥 Video</div>
+                    <h3>Understanding Your Inner Critic</h3>
+                    <p>Learn how to recognise and respond to harsh self-talk in a healthy way.</p>
+                    <div class="video-thumb">▶</div>
+                    <button class="btn-teal-sm">Watch Now</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/dashboard.js"></script>
+    <script>
+        initDashboard('reading');
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).style.display = '';
+            });
+        });
+    </script>
+</body>
+
+</html>

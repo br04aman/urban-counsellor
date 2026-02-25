@@ -1,0 +1,783 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Story — Urban Counsellor</title>
+    <meta name="description"
+        content="Urban Counsellor was born from a deeply personal belief: that mental wellness support should be accessible, compassionate, and free of stigma for every Indian." />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --teal: #1aafaa;
+            --teal-dark: #158f8b;
+            --teal-light: #e6f7f7;
+            --text: #2d3748;
+            --muted: #718096;
+            --bg: #f7fafc;
+            --white: #fff;
+            --border: #e2e8f0;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.7;
+        }
+
+        /* ── Nav ── */
+        .story-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 60px;
+            border-bottom: 1px solid var(--border);
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--teal);
+        }
+
+        .brand-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--teal);
+            line-height: 1.2;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.88rem;
+            color: var(--muted);
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--teal);
+        }
+
+        .nav-cta {
+            padding: 10px 22px;
+            background: var(--teal);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background .2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--teal-dark);
+        }
+
+        /* ── Hero ── */
+        .story-hero {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 60px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 40px 60px;
+        }
+
+        .hero-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--teal);
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            color: var(--teal);
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 520px;
+        }
+
+        .founder-photo-wrap {
+            position: relative;
+        }
+
+        .founder-photo {
+            width: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            max-height: 500px;
+            box-shadow: 0 20px 60px rgba(26, 175, 170, 0.2);
+        }
+
+        .founder-badge {
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+            white-space: nowrap;
+        }
+
+        .badge-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .badge-text strong {
+            font-size: 0.88rem;
+            color: var(--text);
+            display: block;
+        }
+
+        .badge-text span {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* ── Stats bar ── */
+        .stats-bar {
+            background: var(--teal);
+            padding: 40px 60px;
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin: 60px 0 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: #fff;
+        }
+
+        .stat-num {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        /* ── Content sections ── */
+        .story-section {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 70px 40px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--teal-light);
+            color: var(--teal-dark);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 5px 14px;
+            border-radius: 50px;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .section-body {
+            font-size: 0.97rem;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        .section-body p {
+            margin-bottom: 18px;
+        }
+
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Pull quote ── */
+        .pull-quote {
+            background: var(--teal-light);
+            border-left: 4px solid var(--teal);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 28px 32px;
+            margin: 40px 0;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--teal-dark);
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .pull-quote cite {
+            display: block;
+            margin-top: 10px;
+            font-style: normal;
+            font-size: 0.82rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        /* ── Timeline ── */
+        .timeline {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 40px 60px;
+        }
+
+        .timeline-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .timeline-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tl-year {
+            background: var(--teal);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            padding: 6px 12px;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .tl-line {
+            width: 2px;
+            background: var(--border);
+            flex: 1;
+            margin-top: 8px;
+        }
+
+        .timeline-item:last-child .tl-line {
+            display: none;
+        }
+
+        .timeline-right {
+            padding-top: 4px;
+        }
+
+        .timeline-right h4 {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .timeline-right p {
+            font-size: 0.87rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ── Values grid ── */
+        .values-section {
+            background: var(--bg);
+            padding: 70px 40px;
+        }
+
+        .values-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .values-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .value-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .value-icon {
+            font-size: 2.2rem;
+            margin-bottom: 14px;
+        }
+
+        .value-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .value-card p {
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ── Mission band ── */
+        .mission-band {
+            background: var(--text);
+            color: #fff;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .mission-band h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            max-width: 700px;
+            margin: 0 auto 16px;
+            line-height: 1.35;
+        }
+
+        .mission-band h2 span {
+            color: var(--teal);
+        }
+
+        .mission-band p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 560px;
+            margin: 0 auto 28px;
+            line-height: 1.7;
+        }
+
+        .mission-cta {
+            display: inline-block;
+            padding: 13px 32px;
+            background: var(--teal);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: background .2s;
+        }
+
+        .mission-cta:hover {
+            background: var(--teal-dark);
+        }
+
+        /* ── Footer ── */
+        .story-footer {
+            text-align: center;
+            padding: 32px 40px;
+            border-top: 1px solid var(--border);
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .story-footer a {
+            color: var(--teal);
+            text-decoration: none;
+        }
+
+        @media (max-width: 900px) {
+            .story-hero {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+                gap: 40px;
+            }
+
+            .founder-photo-wrap {
+                order: -1;
+                max-width: 360px;
+                margin: 0 auto;
+            }
+
+            .story-nav {
+                padding: 16px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats-bar {
+                gap: 40px;
+                padding: 32px 20px;
+                flex-wrap: wrap;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Nav -->
+    <nav class="story-nav">
+        <a href="/" class="nav-brand">
+            <div class="brand-dot"></div>
+            <div class="brand-text">URBAN<br>COUNSELLOR</div>
+        </a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/assessment">Assessments</a>
+            <a href="/reading">Resources</a>
+            <a href="/our-story" style="color:var(--teal);font-weight:700">Our Story</a>
+            <a href="/signup" class="nav-cta">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="story-hero">
+        <div>
+            <div class="hero-label">Founder & Our Story</div>
+            <h1 class="hero-title">Born from empathy.<br>Built for <span>every story</span>.</h1>
+            <p class="hero-subtitle">
+                Urban Counsellor was founded on a belief that sat quietly in the founder's heart for years — that in
+                India, millions of people silently struggle with their mental health, not because help doesn't exist,
+                but because reaching for it still feels like a risk.
+                <br><br>
+                This is the story of why that had to change.
+            </p>
+        </div>
+        <div class="founder-photo-wrap">
+            <img src="/assets/founder.jpg" alt="Founder of Urban Counsellor" class="founder-photo" />
+            <div class="founder-badge">
+                <div class="badge-avatar">A</div>
+                <div class="badge-text">
+                    <strong>Aman Singh</strong>
+                    <span>Founder, Urban Counsellor</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats bar -->
+    <div class="stats-bar">
+        <div class="stat-item"><span class="stat-num">5,000+</span><span class="stat-label">People Supported</span>
+        </div>
+        <div class="stat-item"><span class="stat-num">50+</span><span class="stat-label">Certified Counsellors</span>
+        </div>
+        <div class="stat-item"><span class="stat-num">11</span><span class="stat-label">Mental Health Assessments</span>
+        </div>
+        <div class="stat-item"><span class="stat-num">4.8★</span><span class="stat-label">Average User Rating</span>
+        </div>
+    </div>
+
+    <!-- Section: The Spark -->
+    <div class="story-section">
+        <div class="section-tag">The Spark</div>
+        <h2 class="section-title">A conversation that changed everything</h2>
+        <div class="section-body">
+            <p>
+                It started in 2022, with a conversation that lasted less than ten minutes — but left a mark that never
+                faded. A close friend confided that they had been struggling with anxiety for over a year, seeing a
+                therapist in secret, too afraid to tell anyone because of what people might think.
+            </p>
+            <p>
+                That wasn't unusual. That was <em>normal</em>. And that was the problem.
+            </p>
+            <p>
+                In a country of 1.4 billion people, mental health is still whispered about in private. Therapy is
+                something people hide from their families. Asking for help is misread as weakness. The stigma isn't just
+                cultural — it's embedded in the language, the lunch-table conversations, the way parents respond when
+                their children say they're "not okay."
+            </p>
+        </div>
+
+        <blockquote class="pull-quote">
+            "I didn't start Urban Counsellor to build a product. I started it because I watched someone I love carry a
+            weight they didn't have to carry alone — and I thought: this has to be easier."
+            <cite>— Aman Singh, Founder</cite>
+        </blockquote>
+
+        <div class="section-body">
+            <p>
+                The idea was simple, even if the execution wasn't: build a place where getting mental health support
+                feels as normal — and as private — as ordering food online or booking a cab. No judgement. No paperwork.
+                No waiting rooms.
+            </p>
+        </div>
+    </div>
+
+    <!-- Section: The Journey -->
+    <div class="story-section" style="padding-top:0">
+        <div class="section-tag">The Journey</div>
+        <h2 class="section-title">Two years, many rebirths</h2>
+        <div class="section-body">
+            <p>
+                Building Urban Counsellor was not a straight line. There were weeks when the platform crashed before
+                important user sessions. There were months when growth stalled and it felt like starting over. There
+                were difficult decisions about pricing — because therapy needs to be affordable, but counsellors need to
+                be paid fairly.
+            </p>
+            <p>
+                There were also moments of unexpected grace. A user who wrote in to say they had gone from not sleeping
+                for three weeks to sleeping soundly — not because of some algorithm, but because of a counsellor who
+                listened without rushing. A teenager who reached out from a city we'd never marketed to, saying they'd
+                found us when they had no one else to turn to.
+            </p>
+            <p>
+                Those moments are why Urban Counsellor exists. They are also why it will keep evolving.
+            </p>
+        </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+        <h2 class="timeline-title">How we got here</h2>
+        <div class="timeline-item">
+            <div class="timeline-left">
+                <div class="tl-year">2022</div>
+                <div class="tl-line"></div>
+            </div>
+            <div class="timeline-right">
+                <h4>The idea is born</h4>
+                <p>A personal conversation about stigma ignites the mission. Early research into India's mental health
+                    gap confirms what we already felt.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-left">
+                <div class="tl-year">2023</div>
+                <div class="tl-line"></div>
+            </div>
+            <div class="timeline-right">
+                <h4>First beta launch</h4>
+                <p>We onboard our first 10 certified counsellors and launch in private beta with 200 users across 3
+                    cities. Early feedback shapes everything.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-left">
+                <div class="tl-year">2024</div>
+                <div class="tl-line"></div>
+            </div>
+            <div class="timeline-right">
+                <h4>Expanding the platform</h4>
+                <p>We add nutrition consultations, self-help programs, and 11 clinical mental health assessments. Our
+                    counsellor network grows to 50+.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-left">
+                <div class="tl-year">2025</div>
+                <div class="tl-line"></div>
+            </div>
+            <div class="timeline-right">
+                <h4>5,000 people supported</h4>
+                <p>We cross our first major milestone. More importantly, our community of users tells us they feel less
+                    alone. That matters more than any number.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-left">
+                <div class="tl-year">2026</div>
+                <div class="tl-line"></div>
+            </div>
+            <div class="timeline-right">
+                <h4>Today — and beyond</h4>
+                <p>We're building towards a future where mental healthcare in India is not an exception, but an
+                    expectation. The journey continues.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Values -->
+    <div class="values-section">
+        <div class="values-inner">
+            <div class="values-header">
+                <div class="section-tag">What We Stand For</div>
+                <h2 class="section-title" style="text-align:center;margin-bottom:0">Our values are not posters on a wall
+                </h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3>Radical Accessibility</h3>
+                    <p>Mental health support shouldn't cost the earth or require a referral. We work hard to keep costs
+                        human and processes simple.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🔒</div>
+                    <h3>Privacy First</h3>
+                    <p>Your sessions, your data, your story — all protected. We never share what you tell us. Trust is
+                        the foundation we build on.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌿</div>
+                    <h3>Compassionate Care</h3>
+                    <p>Every counsellor on our platform is certified and trained to listen without judgement. Healing
+                        happens in presence, not speed.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🇮🇳</div>
+                    <h3>Culturally Rooted</h3>
+                    <p>We understand Indian family systems, relationship dynamics, and social pressures. Our approach is
+                        contextual, not copy-pasted from the West.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">📊</div>
+                    <h3>Evidence-Based</h3>
+                    <p>Our assessments, programs, and resources are grounded in validated psychological research — not
+                        wellness trends or quick fixes.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">✨</div>
+                    <h3>Destigmatization</h3>
+                    <p>We talk about mental health openly — in our content, our design, and our language — because
+                        normalising the conversation is part of the cure.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Philosophy section -->
+    <div class="story-section">
+        <div class="section-tag">Our Philosophy</div>
+        <h2 class="section-title">Responsible mental health care: beyond trends, back to what truly heals</h2>
+        <div class="section-body">
+            <p>
+                There is a lot of noise in the wellness space right now — apps that gamify your mood, influencers
+                dispensing therapy advice in 60-second videos, subscriptions that replace human connection with chatbot
+                responses. We've thought carefully about where we fit in this landscape.
+            </p>
+            <p>
+                Our answer is deliberate: we use technology to make access easier, not to replace what matters. A real
+                counsellor. A real conversation. A real commitment to your wellbeing over time.
+            </p>
+        </div>
+        <blockquote class="pull-quote">
+            "Alone, you may go fast. Together, you go far. With the right intent and a few thoughtful changes, it's
+            possible to do both."
+            <cite>— Aman Singh</cite>
+        </blockquote>
+        <div class="section-body">
+            <p>
+                We are not trying to replace therapy. We are trying to make it findable, affordable, and destigmatised —
+                so that the next time someone needs help, reaching out feels like the obvious choice rather than a last
+                resort.
+            </p>
+            <p>
+                That is the story Urban Counsellor is still writing. And you — whether you're a user, a counsellor, or
+                someone who just stumbled onto this page at 2am — you're part of it.
+            </p>
+        </div>
+    </div>
+
+    <!-- Mission band -->
+    <div class="mission-band">
+        <h2>Mental wellness for <span>every Indian</span>.<br>Not someday. Now.</h2>
+        <p>Whether you're struggling or just curious, our counsellors and resources are here. Taking the first step is
+            the hardest part — we've made it as easy as we can.</p>
+        <a href="/signup" class="mission-cta">Start Your Journey →</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="story-footer">
+        <p>© 2026 Urban Counsellor &nbsp;·&nbsp; <a href="/">Home</a> &nbsp;·&nbsp; <a
+                href="/assessment">Assessments</a> &nbsp;·&nbsp; <a href="/reading">Resources</a> &nbsp;·&nbsp; <a
+                href="/signin">Sign In</a></p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Loading Category...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" id="main-style" />
+    <script>
+        if (window.location.protocol === 'file:') {
+            document.getElementById('main-style').href = './styles.css';
+
+            document.addEventListener('click', (e) => {
+                const a = e.target.closest('a');
+                if (a && a.getAttribute('href')) {
+                    let href = a.getAttribute('href');
+                    if (href.startsWith('http') || href.startsWith('#')) return;
+                    if (href.startsWith('/services/')) {
+                        e.preventDefault();
+                        const slug = href.split('/').filter(Boolean).pop();
+                        window.location.href = './service-category.html?id=' + slug;
+                    } else if (href.startsWith('/support/')) {
+                        e.preventDefault();
+                        const slug = href.split('/').filter(Boolean).pop();
+                        window.location.href = './service-details.html?id=' + slug;
+                    } else if (href.startsWith('/') && href.length > 1) {
+                        e.preventDefault();
+                        const page = href.split('/')[1];
+                        window.location.href = './' + page + '.html';
+                    } else if (href === '/') {
+                        e.preventDefault();
+                        window.location.href = './index.html';
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Identical promo-bar and nav ... -->
+    <div class="promo-bar">
+        <span>Get 10% Off On Your First Therapy Plan</span>
+        <div class="promo-code">
+            <span>BETTER10</span>
+            <button class="btn btn-outline btn-small">Click To Copy</button>
+        </div>
+    </div>
+
+    <header class="hero" id="top" style="padding-top: 100px; padding-bottom: 20px;">
+        <nav class="nav">
+            <div class="brand">
+                <span class="brand-mark"></span>
+                <span class="brand-name">URBAN COUNSELLOR</span>
+            </div>
+            <div class="nav-links">
+                <a href="/our-story">Our Story</a>
+                <div class="nav-dropdown">
+                    <a href="/services">Services <span class="nav-caret">▼</span></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="/services/relationship-counselling">Relationship Counselling</a>
+                        <a href="/services/stress-anxiety-depression">Stress Anxiety Depression</a>
+                        <a href="/services/confidence">Confidence</a>
+                        <a href="/services/trauma">Trauma</a>
+                        <a href="/services/lgbtq">LGBTQ+</a>
+                        <a href="/services/lifestyle-issues">Lifestyle Issues</a>
+                        <a href="/services/women-centric-challenges">Women Centric Challenges</a>
+                        <a href="/services/managing-workplace">Managing Workplace</a>
+                        <a href="/services/parenting">Parenting</a>
+                        <a href="/services/adhd">ADHD</a>
+                        <a href="/services/psychiatric-support">Psychiatric Support</a>
+                    </div>
+                </div>
+                <a href="/#articles">Articles</a>
+                <a href="/counsellors">Counsellors</a>
+                <a href="/#reviews">Reviews</a>
+            </div>
+            <div class="nav-actions" id="nav-actions">
+                <button class="btn btn-primary" id="nav-get-started" onclick="location.href='/pricing'">Get
+                    Started</button>
+                <a class="nav-link" id="nav-signin" href="/signin">Sign In</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-heading" style="padding: 40px 20px 20px;">
+        <h1 id="category-title">Loading...</h1>
+        <p id="category-desc">...</p>
+    </div>
+
+    <section class="section services-catalog" style="padding-top: 0;">
+        <div class="service-category-card" style="border: none; box-shadow: none;">
+            <div class="service-category-header">
+                <img id="category-img" src="" alt="Category Image" class="service-cat-img"
+                    style="border-radius: 12px;" />
+            </div>
+            <h3 style="margin-bottom: 20px;">Our Specific Services</h3>
+            <div class="service-links-grid" id="pills-container">
+                <!-- Pills injected dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <aside class="float-actions">
+        <button class="float-btn" onclick="location.href='/onboarding'">Book Session</button>
+        <button class="float-btn">Chat</button>
+        <button class="float-btn">Call</button>
+    </aside>
+
+    <footer class="footer">
+        <div class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-name">URBAN COUNSELLOR</span>
+        </div>
+        <div class="footer-links">
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+            <a href="/support">Support</a>
+        </div>
+        <span class="footer-copy">© 2026 Urban Counsellor. All rights reserved.</span>
+    </footer>
+
+    <script src="/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const categoryData = {
+            "relationship-counselling": {
+                title: "Relationship Counselling",
+                img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
+                desc: "Navigating relationships can be challenging. Whether you're dealing with conflict, intimacy issues, or a breakup, our specialized counselors provide a safe space to heal, communicate, and rebuild healthy connections.",
+                pills: ["Break Up", "Cheating & Infidelity", "Couple", "Divorce", "Dating", "Friendship", "Family", "Intimacy", "Marriage", "Pre Marital", "Toxic Relation"]
+            },
+            "stress-anxiety-depression": {
+                title: "Stress Anxiety Depression",
+                img: "https://images.unsplash.com/photo-1559526323-cb2f2fe2591b?auto=format&fit=crop&w=800&q=80",
+                desc: "Overwhelming emotions can disrupt your daily life. Therapy equips you with coping strategies to manage panic, sadness, and tension, so you can regain control and find a peaceful rhythm.",
+                pills: ["Stress", "Anxiety", "Depression"]
+            },
+            "confidence": {
+                title: "Confidence",
+                img: "https://images.unsplash.com/photo-1542385151-efd9000785a0?auto=format&fit=crop&w=800&q=80",
+                desc: "Struggling with self-doubt or low self-esteem? Work with an expert to identify your strengths, silence your inner critic, and build the confidence necessary to pursue your goals without hesitation.",
+                pills: ["Building Confidence"]
+            },
+            "trauma": {
+                title: "Trauma",
+                img: "https://images.unsplash.com/photo-1493836512294-502baa1986e2?auto=format&fit=crop&w=800&q=80",
+                desc: "Past experiences can leave lasting invisible wounds. Trauma-informed therapy helps you safely process devastating events, reducing the emotional burden and fostering resilience for the future.",
+                pills: ["Trauma Healing"]
+            },
+            "lgbtq": {
+                title: "LGBTQ+",
+                img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80",
+                desc: "Find an affirming, open-minded environment to discuss identity, coming out, familial rejection, or gender dysphoria. Our counselors provide inclusive care tailored to your unique journey.",
+                pills: ["LGBTQ+ Support"]
+            },
+            "lifestyle-issues": {
+                title: "Lifestyle Issues",
+                img: "https://images.unsplash.com/photo-1502224562085-639556652f33?auto=format&fit=crop&w=800&q=80",
+                desc: "Struggling with motivation, bad habits, or life transitions? We help you realign your day-to-day actions with your long-term goals, whether through goal-setting or behavioral changes.",
+                pills: ["Lifestyle Adjustments"]
+            },
+            "women-centric-challenges": {
+                title: "Women Centric Challenges",
+                img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+                desc: "Women face unique societal, physical, and emotional hurdles. Experience a supportive space dedicated to women's issues, empowering you to navigate life's complexities with strength.",
+                pills: ["Women's Support", "Postpartum", "Menopause"]
+            },
+            "managing-workplace": {
+                title: "Managing Workplace",
+                img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+                desc: "Burnout, difficult bosses, or career stagnation can dominate your thoughts. Find guidance on managing professional stress, setting boundaries, and carving out a fulfilling career path.",
+                pills: ["Workplace Management", "Burnout", "Career Transition"]
+            },
+            "parenting": {
+                title: "Parenting",
+                img: "https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?auto=format&fit=crop&w=800&q=80",
+                desc: "Parenting is deeply rewarding but profoundly stressful. Receive actionable advice and emotional support for diverse parenting hurdles, ranging from toddler tantrums to teenage disconnect.",
+                pills: ["Parenting Support", "New Parents", "Teen Challenges"]
+            },
+            "adhd": {
+                title: "ADHD",
+                img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
+                desc: "Difficulty focusing, time blindness, or executive dysfunction? Working with a therapist experienced in ADHD can help you build customized systems and habits to thrive neurodivergently.",
+                pills: ["Managing ADHD", "Time Management", "Focus Strategies"]
+            },
+            "psychiatric-support": {
+                title: "Psychiatric Support",
+                img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
+                desc: "Sometimes counseling alone isn't enough. Our certified psychiatrists provide medical evaluations and pharmacological management to support your holistic recovery journey safely.",
+                pills: ["Psychiatric Evaluation", "Medication Management"]
+            }
+        };
+
+        const pathSegments = window.location.pathname.split('/').filter(Boolean);
+        const slug = pathSegments[pathSegments.length - 1]; // e.g. "relationship-counselling"
+
+        const data = categoryData[slug];
+
+        if (data) {
+            document.getElementById('page-title').textContent = data.title + " - Urban Counsellor";
+            document.getElementById('category-title').textContent = data.title;
+            document.getElementById('category-desc').textContent = data.desc;
+            document.getElementById('category-img').src = data.img;
+            document.getElementById('category-img').alt = data.title;
+
+            const container = document.getElementById('pills-container');
+            data.pills.forEach(pill => {
+                const linkStr = pill.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                container.innerHTML += `
+          <a href="/support/${linkStr}" class="service-link-pill">
+            <span>${pill}</span>
+            <div class="service-arrow">➔</div>
+          </a>
+        `;
+            });
+        } else {
+            document.getElementById('category-title').textContent = "Category Not Found";
+            document.getElementById('category-desc').textContent = "Please return to the services catalog.";
+        }
+
+        // Auth logic
+        (async () => {
+            const url = window.SUPABASE_URL || '';
+            const key = window.SUPABASE_ANON_KEY || '';
+            if (!url || !key) return;
+            const sb = window.supabase.createClient(url, key);
+
+            function renderLoggedIn(email) {
+                const actions = document.getElementById('nav-actions');
+                actions.innerHTML = '<span style="color:var(--text-color); font-weight:600;">' + email + '</span><button class="btn btn-outline btn-small" id="btn-signout" style="margin-left:15px;">Sign Out</button>';
+                document.getElementById('btn-signout').addEventListener('click', async () => {
+                    await sb.auth.signOut();
+                    window.location.reload();
+                });
+            }
+
+            const { data: { session } } = await sb.auth.getSession();
+            if (session && session.user) {
+                renderLoggedIn(session.user.email);
+            }
+        })();
+    </script>
+</body>
+
+</html>

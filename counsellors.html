@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Counsellors — Urban Counsellor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" id="main-style" />
+    <script>
+        if (window.location.protocol === 'file:') {
+            document.getElementById('main-style').href = './styles.css';
+
+            document.addEventListener('click', (e) => {
+                const a = e.target.closest('a');
+                if (a && a.getAttribute('href')) {
+                    let href = a.getAttribute('href');
+                    if (href.startsWith('http') || href.startsWith('#')) return;
+                    if (href.startsWith('/services/')) {
+                        e.preventDefault();
+                        const slug = href.split('/').filter(Boolean).pop();
+                        window.location.href = './service-category.html?id=' + slug;
+                    } else if (href.startsWith('/support/')) {
+                        e.preventDefault();
+                        const slug = href.split('/').filter(Boolean).pop();
+                        window.location.href = './service-details.html?id=' + slug;
+                    } else if (href.startsWith('/') && href.length > 1) {
+                        e.preventDefault();
+                        const page = href.split('/')[1];
+                        window.location.href = './' + page + '.html';
+                    } else if (href === '/') {
+                        e.preventDefault();
+                        window.location.href = './index.html';
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="promo-bar">
+        <span>Get 10% Off On Your First Therapy Plan</span>
+        <div class="promo-code">
+            <span>BETTER10</span>
+            <button class="btn btn-outline btn-small">Click To Copy</button>
+        </div>
+    </div>
+
+    <header class="hero" id="top" style="padding-bottom: 20px;">
+        <nav class="nav">
+            <div class="brand">
+                <span class="brand-mark"></span>
+                <span class="brand-name">URBAN COUNSELLOR</span>
+            </div>
+            <div class="nav-links">
+                <a href="/our-story">Our Story</a>
+                <div class="nav-dropdown">
+                    <a href="/services">Services <span class="nav-caret">▼</span></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="/services/relationship-counselling">Relationship Counselling</a>
+                        <a href="/services/stress-anxiety-depression">Stress Anxiety Depression</a>
+                        <a href="/services/confidence">Confidence</a>
+                        <a href="/services/trauma">Trauma</a>
+                        <a href="/services/lgbtq">LGBTQ+</a>
+                        <a href="/services/lifestyle-issues">Lifestyle Issues</a>
+                        <a href="/services/women-centric-challenges">Women Centric Challenges</a>
+                        <a href="/services/managing-workplace">Managing Workplace</a>
+                        <a href="/services/parenting">Parenting</a>
+                        <a href="/services/adhd">ADHD</a>
+                        <a href="/services/psychiatric-support">Psychiatric Support</a>
+                    </div>
+                </div>
+                <a href="/#articles">Articles</a>
+                <a href="/counsellors">Counsellors</a>
+                <a href="/#reviews">Reviews</a>
+            </div>
+            <div class="nav-actions" id="nav-actions">
+                <!-- Will be populated by JS -->
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-heading">
+            <h1>Meet Our Expert Counsellors</h1>
+            <p>Compassionate, certified professionals dedicated to guiding your healing journey.</p>
+        </div>
+
+        <section class="counsellors-catalog section">
+            <div class="therapist-grid">
+
+                <!-- Therapist Card 1 -->
+                <div class="therapist-card">
+                    <div class="therapist-header">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80"
+                            alt="Dr. Sarah Jenkins" class="therapist-avatar">
+                        <div class="therapist-info">
+                            <h3 class="therapist-name">Dr. Sarah Jenkins</h3>
+                            <p class="therapist-credentials">Clinical Psychologist, Ph.D.</p>
+                            <div class="therapist-experience">
+                                <span class="icon">★</span> 4.9 (120+ Reviews)
+                                <span class="separator">•</span>
+                                <span>8 Years Exp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="therapist-tags">
+                        <span class="tag">Anxiety</span>
+                        <span class="tag">Depression</span>
+                        <span class="tag">Trauma</span>
+                    </div>
+
+                    <div class="therapist-languages">
+                        <strong>Speaks:</strong> English, Spanish
+                    </div>
+
+                    <p class="therapist-bio">
+                        Dr. Jenkins specializes in cognitive-behavioral approaches to treating severe anxiety and
+                        depression. She provides a warm, non-judgmental space to explore core issues.
+                    </p>
+
+                    <div class="therapist-actions">
+                        <button class="btn btn-outline" style="flex: 1;"
+                            onclick="location.href='/therapist/sarah-jenkins'">View Profile</button>
+                        <button class="btn btn-primary" style="flex: 1;" onclick="location.href='/pricing'">Book
+                            Session</button>
+                    </div>
+                </div>
+
+
+                <!-- Therapist Card 2 -->
+                <div class="therapist-card">
+                    <div class="therapist-header">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=200&q=80"
+                            alt="Dr. Michael Chang" class="therapist-avatar">
+                        <div class="therapist-info">
+                            <h3 class="therapist-name">Dr. Michael Chang</h3>
+                            <p class="therapist-credentials">Couples Therapist, LMFT</p>
+                            <div class="therapist-experience">
+                                <span class="icon">★</span> 4.8 (95+ Reviews)
+                                <span class="separator">•</span>
+                                <span>12 Years Exp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="therapist-tags">
+                        <span class="tag">Relationship</span>
+                        <span class="tag">Infidelity</span>
+                        <span class="tag">Divorce</span>
+                    </div>
+
+                    <div class="therapist-languages">
+                        <strong>Speaks:</strong> English, Mandarin
+                    </div>
+
+                    <p class="therapist-bio">
+                        Specializing in the Gottman Method, Michael helps couples navigate intense conflict, rebuild
+                        shattered trust after infidelity, and establish deeply intimate connections.
+                    </p>
+
+                    <div class="therapist-actions">
+                        <button class="btn btn-outline" style="flex: 1;"
+                            onclick="location.href='/therapist/michael-chang'">View Profile</button>
+                        <button class="btn btn-primary" style="flex: 1;" onclick="location.href='/pricing'">Book
+                            Session</button>
+                    </div>
+                </div>
+
+
+                <!-- Therapist Card 3 -->
+                <div class="therapist-card">
+                    <div class="therapist-header">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80"
+                            alt="Elena Rodriguez" class="therapist-avatar">
+                        <div class="therapist-info">
+                            <h3 class="therapist-name">Elena Rodriguez</h3>
+                            <p class="therapist-credentials">Licensed Clinical Social Worker</p>
+                            <div class="therapist-experience">
+                                <span class="icon">★</span> 5.0 (200+ Reviews)
+                                <span class="separator">•</span>
+                                <span>5 Years Exp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="therapist-tags">
+                        <span class="tag">LGBTQ+</span>
+                        <span class="tag">Identity</span>
+                        <span class="tag">Self-Esteem</span>
+                    </div>
+
+                    <div class="therapist-languages">
+                        <strong>Speaks:</strong> English
+                    </div>
+
+                    <p class="therapist-bio">
+                        Elena brings lived experience and clinical expertise to LGBTQ+ affirming therapy, helping
+                        clients navigate coming out, gender identity, and developing fierce self-love.
+                    </p>
+
+                    <div class="therapist-actions">
+                        <button class="btn btn-outline" style="flex: 1;"
+                            onclick="location.href='/therapist/elena-rodriguez'">View Profile</button>
+                        <button class="btn btn-primary" style="flex: 1;" onclick="location.href='/pricing'">Book
+                            Session</button>
+                    </div>
+                </div>
+
+
+                <!-- Therapist Card 4 -->
+                <div class="therapist-card">
+                    <div class="therapist-header">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=200&q=80"
+                            alt="Dr. Robert Hayes" class="therapist-avatar">
+                        <div class="therapist-info">
+                            <h3 class="therapist-name">Dr. Robert Hayes</h3>
+                            <p class="therapist-credentials">Psychiatrist, M.D.</p>
+                            <div class="therapist-experience">
+                                <span class="icon">★</span> 4.7 (88 Reviews)
+                                <span class="separator">•</span>
+                                <span>15 Years Exp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="therapist-tags">
+                        <span class="tag">ADHD</span>
+                        <span class="tag">Medication</span>
+                        <span class="tag">Bipolar</span>
+                    </div>
+
+                    <div class="therapist-languages">
+                        <strong>Speaks:</strong> English, French
+                    </div>
+
+                    <p class="therapist-bio">
+                        A compassionate physician who integrates medication management with lifestyle adjustments,
+                        focusing heavily on ADHD optimization and mood disorders.
+                    </p>
+
+                    <div class="therapist-actions">
+                        <button class="btn btn-outline" style="flex: 1;"
+                            onclick="location.href='/therapist/robert-hayes'">View Profile</button>
+                        <button class="btn btn-primary" style="flex: 1;" onclick="location.href='/pricing'">Book
+                            Session</button>
+                    </div>
+                </div>
+
+
+                <!-- Therapist Card 5 -->
+                <div class="therapist-card">
+                    <div class="therapist-header">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80"
+                            alt="Aisha Patel" class="therapist-avatar">
+                        <div class="therapist-info">
+                            <h3 class="therapist-name">Aisha Patel</h3>
+                            <p class="therapist-credentials">Cognitive Behavioral Therapist</p>
+                            <div class="therapist-experience">
+                                <span class="icon">★</span> 4.9 (150+ Reviews)
+                                <span class="separator">•</span>
+                                <span>7 Years Exp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="therapist-tags">
+                        <span class="tag">Stress</span>
+                        <span class="tag">Workplace</span>
+                        <span class="tag">Life Stages</span>
+                    </div>
+
+                    <div class="therapist-languages">
+                        <strong>Speaks:</strong> English, Hindi, Gujarati
+                    </div>
+
+                    <p class="therapist-bio">
+                        Aisha helps high-achievers manage intense workplace stress, overcome burnout, and gracefully
+                        navigate massive life transitions like relocating or changing careers.
+                    </p>
+
+                    <div class="therapist-actions">
+                        <button class="btn btn-outline" style="flex: 1;"
+                            onclick="location.href='/therapist/aisha-patel'">View Profile</button>
+                        <button class="btn btn-primary" style="flex: 1;" onclick="location.href='/pricing'">Book
+                            Session</button>
+                    </div>
+                </div>
+
+
+                <!-- Therapist Card 6 -->
+                <div class="therapist-card">
+                    <div class="therapist-header">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
+                            alt="David Miller" class="therapist-avatar">
+                        <div class="therapist-info">
+                            <h3 class="therapist-name">David Miller</h3>
+                            <p class="therapist-credentials">Family & Parenting Counselor</p>
+                            <div class="therapist-experience">
+                                <span class="icon">★</span> 4.8 (110 Reviews)
+                                <span class="separator">•</span>
+                                <span>10 Years Exp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="therapist-tags">
+                        <span class="tag">Parenting</span>
+                        <span class="tag">Teenagers</span>
+                        <span class="tag">Family Dynamics</span>
+                    </div>
+
+                    <div class="therapist-languages">
+                        <strong>Speaks:</strong> English
+                    </div>
+
+                    <p class="therapist-bio">
+                        Empowering parents to bridge communication gaps with their teens and fostering healthier, more
+                        empathetic family environments across all generations.
+                    </p>
+
+                    <div class="therapist-actions">
+                        <button class="btn btn-outline" style="flex: 1;"
+                            onclick="location.href='/therapist/david-miller'">View Profile</button>
+                        <button class="btn btn-primary" style="flex: 1;" onclick="location.href='/pricing'">Book
+                            Session</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <aside class="float-actions">
+        <button class="float-btn" onclick="location.href='/onboarding'">Book Session</button>
+        <button class="float-btn">Chat</button>
+        <button class="float-btn">Call</button>
+    </aside>
+
+    <footer class="footer">
+        <div class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-name">URBAN COUNSELLOR</span>
+        </div>
+        <div class="footer-links">
+            <a href="/#">Privacy</a>
+            <a href="/#">Terms</a>
+            <a href="/#">Support</a>
+        </div>
+        <span class="footer-copy">© 2026 Urban Counsellor. All rights reserved.</span>
+    </footer>
+
+    <style>
+        .nav-profile {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--teal, #1aafaa);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: box-shadow .2s;
+        }
+
+        .nav-avatar:hover {
+            box-shadow: 0 0 0 3px rgba(26, 175, 170, 0.35);
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            min-width: 200px;
+            padding: 12px 0;
+            z-index: 999;
+        }
+
+        .profile-dropdown.open {
+            display: block;
+        }
+
+        .profile-dropdown .pd-email {
+            padding: 8px 18px 10px;
+            font-size: 0.82rem;
+            color: #666;
+            border-bottom: 1px solid #f0f0f0;
+            word-break: break-all;
+        }
+
+        .profile-dropdown .pd-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 18px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #e53e3e;
+            font-weight: 600;
+            transition: background .15s;
+        }
+
+        .profile-dropdown .pd-btn:hover {
+            background: #fff5f5;
+        }
+    </style>
+
+    <script src="/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        (async () => {
+            const url = window.SUPABASE_URL || '';
+            const key = window.SUPABASE_ANON_KEY || '';
+            if (!url || !key) return;
+            const sb = window.supabase.createClient(url, key);
+
+            function renderLoggedIn(email) {
+                const initial = (email || 'U')[0].toUpperCase();
+                const actions = document.getElementById('nav-actions');
+                actions.innerHTML = `
+            <div class="nav-profile" id="nav-profile">
+              <div class="nav-avatar" id="nav-avatar" title="${email}">${initial}</div>
+              <div class="profile-dropdown" id="profile-dropdown">
+                <div class="pd-email">${email}</div>
+                <button class="pd-btn" id="pd-signout">Sign Out</button>
+              </div>
+            </div>`;
+                document.getElementById('nav-avatar').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.getElementById('profile-dropdown').classList.toggle('open');
+                });
+                document.addEventListener('click', () => {
+                    const dd = document.getElementById('profile-dropdown');
+                    if (dd) dd.classList.remove('open');
+                });
+                document.getElementById('pd-signout').addEventListener('click', async () => {
+                    await sb.auth.signOut();
+                    window.location.reload();
+                });
+            }
+
+            function renderLoggedOut() {
+                const actions = document.getElementById('nav-actions');
+                actions.innerHTML = `
+            <button class="btn btn-primary" onclick="location.href='/pricing'">Get Started</button>
+            <a class="nav-link" href="/signin">Sign In</a>`;
+            }
+
+            const { data: { session } } = await sb.auth.getSession();
+            if (session && session.user) {
+                renderLoggedIn(session.user.email);
+            } else {
+                renderLoggedOut();
+            }
+
+            sb.auth.onAuthStateChange((_event, session) => {
+                if (session && session.user) renderLoggedIn(session.user.email);
+                else renderLoggedOut();
+            });
+        })();
+    </script>
+</body>
+
+</html>

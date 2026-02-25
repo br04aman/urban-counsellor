@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session Notes — Urban Counsellor</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/dashboard.css" />
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main">
+        <h1 class="page-title">Session Notes</h1>
+        <div class="card">
+            <div class="card-toolbar">
+                <button class="btn-teal" id="add-note-btn">📝 Add New Note</button>
+            </div>
+            <div id="note-form" style="display:none" class="compose-box">
+                <div class="field-group"><label>Session Date</label><input type="date" id="note-date" /></div>
+                <div class="field-group"><label>Counsellor Name</label><input type="text" id="note-counsellor"
+                        placeholder="e.g. Dr. Jincy Mol" /></div>
+                <div class="field-group"><label>Notes / Key Takeaways</label><textarea id="note-body" rows="5"
+                        placeholder="Write what you learned or felt in the session..."></textarea></div>
+                <div class="field-group"><label>Mood After Session</label>
+                    <div class="mood-row" id="mood-row">
+                        <button class="mood-btn" data-val="😊 Great">😊 Great</button>
+                        <button class="mood-btn" data-val="🙂 Good">🙂 Good</button>
+                        <button class="mood-btn" data-val="😐 Neutral">😐 Neutral</button>
+                        <button class="mood-btn" data-val="😔 Low">😔 Low</button>
+                        <button class="mood-btn" data-val="😢 Difficult">😢 Difficult</button>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-teal" id="save-note-btn">Save Note</button>
+                    <button class="btn-ghost" id="cancel-note-btn">Cancel</button>
+                </div>
+            </div>
+            <div id="notes-list">
+                <div class="empty-state">📓<p>No session notes yet. Add your first note after a session.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/dashboard.js"></script>
+    <script>
+        initDashboard('session-notes');
+        document.getElementById('add-note-btn').addEventListener('click', () => {
+            const f = document.getElementById('note-form');
+            f.style.display = f.style.display === 'none' ? '' : 'none';
+        });
+        document.getElementById('cancel-note-btn').addEventListener('click', () => { document.getElementById('note-form').style.display = 'none'; });
+        document.querySelectorAll('.mood-btn').forEach(btn => {
+            btn.addEventListener('click', () => { document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); });
+        });
+        document.getElementById('save-note-btn').addEventListener('click', () => {
+            const date = document.getElementById('note-date').value;
+            const counsellor = document.getElementById('note-counsellor').value.trim();
+            const body = document.getElementById('note-body').value.trim();
+            const mood = document.querySelector('.mood-btn.selected')?.dataset.val || '';
+            if (!body) return;
+            const list = document.getElementById('notes-list');
+            list.querySelector('.empty-state')?.remove();
+            const item = document.createElement('div');
+            item.className = 'note-card';
+            item.innerHTML = `<div class="note-header"><span class="note-date">${date || 'Today'}</span>${mood ? `<span class="mood-tag">${mood}</span>` : ''}</div>${counsellor ? `<div class="note-counsellor">With: ${counsellor}</div>` : ''}<div class="note-body">${body}</div>`;
+            list.prepend(item);
+            document.getElementById('note-form').style.display = 'none';
+            document.getElementById('note-body').value = '';
+            document.getElementById('note-date').value = '';
+            document.getElementById('note-counsellor').value = '';
+            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+        });
+    </script>
+</body>
+
+</html>

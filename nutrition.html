@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nutrition Consultation — Urban Counsellor</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/dashboard.css" />
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main">
+        <h1 class="page-title">Nutrition & Wellness</h1>
+        <div class="info-banner">🥗 Good nutrition supports your mental wellbeing. Book a consultation with our wellness
+            experts.</div>
+        <div class="grid-3">
+            <div class="feature-card">
+                <div class="feature-icon">🥦</div>
+                <h3>Diet Assessment</h3>
+                <p>Get a personalised nutrition plan based on your lifestyle and mental health goals.</p>
+                <button class="btn-teal-sm">Book Now</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧘</div>
+                <h3>Mindful Eating</h3>
+                <p>Learn techniques to build a healthy relationship with food and reduce stress eating.</p>
+                <button class="btn-teal-sm">Learn More</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💊</div>
+                <h3>Supplement Guidance</h3>
+                <p>Expert advice on vitamins and supplements that support mood and cognitive function.</p>
+                <button class="btn-teal-sm">Explore</button>
+            </div>
+        </div>
+        <div class="card" style="margin-top:24px">
+            <div class="section-label" style="margin-bottom:18px">📅 Book a Nutrition Consultation</div>
+            <div class="two-col">
+                <div class="field-group"><label>Your Goal</label>
+                    <select>
+                        <option>Improve mood through diet</option>
+                        <option>Manage stress eating</option>
+                        <option>Build energy & focus</option>
+                        <option>Weight management</option>
+                        <option>General wellness</option>
+                    </select>
+                </div>
+                <div class="field-group"><label>Preferred Date</label><input type="date" /></div>
+                <div class="field-group"><label>Preferred Time</label>
+                    <select>
+                        <option>Morning (9am–12pm)</option>
+                        <option>Afternoon (12pm–5pm)</option>
+                        <option>Evening (5pm–8pm)</option>
+                    </select>
+                </div>
+                <div class="field-group"><label>Session Mode</label>
+                    <select>
+                        <option>Video Call</option>
+                        <option>Voice Call</option>
+                        <option>Chat</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-teal" style="margin-top:18px">Confirm Booking</button>
+        </div>
+    </main>
+    <script src="/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/dashboard.js"></script>
+    <script>initDashboard('nutrition');</script>
+</body>
+
+</html>

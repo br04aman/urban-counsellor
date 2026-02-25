@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing — Urban Counsellor</title>
+    <meta name="description"
+        content="Transparent pricing for mental health support. Choose a therapy plan that works for you." />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --teal: #1aafaa;
+            --teal-dark: #158f8b;
+            --teal-light: #e6f7f7;
+            --text: #2d3748;
+            --muted: #718096;
+            --bg: #f7fafc;
+            --white: #fff;
+            --border: #e2e8f0;
+            --radius: 12px;
+
+            --card-yellow: #f6b93b;
+            --card-blue: #74b9ff;
+            --card-green: #55efc4;
+            --card-green-dark: #00b894;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text);
+            background: #ebf8f8;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Nav ── */
+        .pricing-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 60px;
+            background: transparent;
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--teal);
+        }
+
+        .brand-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--teal);
+            line-height: 1.2;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.88rem;
+            color: var(--muted);
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--teal);
+        }
+
+        .nav-cta {
+            padding: 10px 22px;
+            background: var(--teal);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background .2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--teal-dark);
+        }
+
+        /* ── Promo Bar ── */
+        .promo-bar {
+            background: var(--teal);
+            color: #fff;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .promo-code {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        /* ── Main Content ── */
+        .pricing-main {
+            flex: 1;
+            padding: 40px 20px 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .pricing-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 24px;
+        }
+
+        .mode-toggle {
+            display: inline-flex;
+            background: var(--white);
+            border-radius: 50px;
+            padding: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .mode-btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .mode-btn.active {
+            background: var(--teal);
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(26, 175, 170, 0.3);
+        }
+
+        /* ── Pricing Grid ── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .price-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            transition: transform .3s;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-head {
+            padding: 36px 24px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .plan-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .plan-price-per {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--teal);
+        }
+
+        .plan-price-per span {
+            font-size: 0.75rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 32px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 24px;
+            flex: 1;
+        }
+
+        .feature-list li {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .bonus-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--teal);
+            margin-bottom: 24px;
+        }
+
+        .total-price {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--teal);
+            margin-bottom: 32px;
+        }
+
+        .total-price span {
+            font-size: 1.4rem;
+            vertical-align: top;
+            margin-right: 2px;
+        }
+
+        .btn-buy {
+            padding: 16px;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            transition: opacity .2s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-buy:hover {
+            opacity: 0.9;
+        }
+
+        /* Card Variants */
+        .card-1 {
+            border-top: 5px solid var(--card-yellow);
+        }
+
+        .card-1 .btn-buy {
+            background: var(--card-yellow);
+        }
+
+        .card-2 {
+            border-top: 5px solid var(--card-blue);
+        }
+
+        .card-2 .btn-buy {
+            background: var(--card-blue);
+        }
+
+        .card-3 {
+            border-top: 5px solid var(--card-green-dark);
+        }
+
+        .card-3 .btn-buy {
+            background: var(--card-green-dark);
+        }
+
+        /* ── Info Features ── */
+        .info-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #e53e3e;
+            font-weight: 500;
+            margin-bottom: 50px;
+        }
+
+        .features-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+
+        .f-item {
+            padding: 0 10px;
+        }
+
+        .f-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(26, 175, 170, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: var(--teal);
+            font-size: 1.2rem;
+        }
+
+        .f-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .f-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        @media (max-width: 900px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .features-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px 24px;
+            }
+
+            .pricing-nav {
+                padding: 16px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Promo -->
+    <div class="promo-bar">
+        <span>Get 10% Off On Your First Therapy Plan</span>
+        <div class="promo-code">BETTER10</div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="pricing-nav">
+        <a href="/" class="nav-brand">
+            <div class="brand-dot"></div>
+            <div class="brand-text">URBAN<br>COUNSELLOR</div>
+        </a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/assessment">Assessments</a>
+            <a href="/reading">Resources</a>
+            <a href="/our-story">Our Story</a>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="pricing-main">
+        <div class="pricing-header">
+            <h1 class="pricing-title">Simple & Transparent Pricing</h1>
+            <div class="mode-toggle">
+                <button class="mode-btn active">Individual</button>
+                <button class="mode-btn">Couple</button>
+            </div>
+        </div>
+
+        <!-- Pricing Grid -->
+        <div class="pricing-grid">
+            <!-- Card 1 -->
+            <div class="price-card card-1">
+                <div class="card-head">
+                    <div class="plan-name">1 SESSION</div>
+                    <div class="plan-price-per">₹ 1099 <span>per session</span></div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>Share In A Safe Space</li>
+                        <li>Release Pent-Up Emotions</li>
+                        <li>Build Your Therapy Plan & Grow!</li>
+                    </ul>
+                    <div class="bonus-text">1 Self help credit free worth ₹500</div>
+                    <div class="total-price"><span>₹</span>1099</div>
+                </div>
+                <a href="/signup" class="btn-buy">Get Therapy</a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="price-card card-2">
+                <div class="card-head">
+                    <div class="plan-name">3 SESSIONS</div>
+                    <div class="plan-price-per">₹ 999 <span>per session</span></div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>Identify Negative Thoughts</li>
+                        <li>Dig Deeper Into Your Concerns</li>
+                        <li>Plan Short-Term Goals</li>
+                    </ul>
+                    <div class="bonus-text">2 Self help credits free worth ₹1000</div>
+                    <div class="total-price"><span>₹</span>2999</div>
+                </div>
+                <a href="/signup" class="btn-buy">Get Therapy</a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="price-card card-3">
+                <div class="card-head">
+                    <div class="plan-name">5 SESSIONS</div>
+                    <div class="plan-price-per">₹ 899 <span>per session</span></div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>Gather Actionable Insights</li>
+                        <li>Enhance Emotional Intelligence</li>
+                        <li>Achieve A Short Term Goal</li>
+                    </ul>
+                    <div class="bonus-text">3 Self help credits free worth ₹1500</div>
+                    <div class="total-price"><span>₹</span>4499</div>
+                </div>
+                <a href="/signup" class="btn-buy">Get Therapy</a>
+            </div>
+        </div>
+
+        <div class="info-note">
+            *For international clients, sessions will be conducted via video and chat only. The call option is not
+            available for international clients.<br>
+            *Couple counselling will only happen through video calls.
+        </div>
+
+        <div class="features-row">
+            <div class="f-item">
+                <div class="f-icon">✉️</div>
+                <div class="f-title">Direct Mail</div>
+                <div class="f-desc">Access to Therapist</div>
+            </div>
+            <div class="f-item">
+                <div class="f-icon">⚗️</div>
+                <div class="f-title">Uniform Pricing</div>
+                <div class="f-desc">All Counsellors & Mode</div>
+            </div>
+            <div class="f-item">
+                <div class="f-icon">⏱️</div>
+                <div class="f-title">Therapist: 45 Min Slot</div>
+                <div class="f-desc">Psychiatrist: 30 Min Slot</div>
+            </div>
+            <div class="f-item">
+                <div class="f-icon">👥</div>
+                <div class="f-title">Couple Appointment</div>
+                <div class="f-desc">= 2 Sessions</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const pricingData = {
+            individual: [
+                { per: '1099', total: '1099' },
+                { per: '999', total: '2999' },
+                { per: '899', total: '4499' }
+            ],
+            couple: [
+                { per: '1599', total: '1599' },
+                { per: '1499', total: '4497' },
+                { per: '1399', total: '6995' }
+            ]
+        };
+
+        const modeBtns = document.querySelectorAll('.mode-btn');
+        const pricePerElements = document.querySelectorAll('.plan-price-per');
+        const totalPriceElements = document.querySelectorAll('.total-price');
+
+        modeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const mode = btn.innerText.toLowerCase();
+                const data = pricingData[mode];
+
+                if (data) {
+                    pricePerElements.forEach((el, index) => {
+                        el.innerHTML = `₹ ${data[index].per} <span>per session</span>`;
+                    });
+
+                    totalPriceElements.forEach((el, index) => {
+                        el.innerHTML = `<span>₹</span>${data[index].total}`;
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

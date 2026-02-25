@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assessment — Urban Counsellor</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/dashboard.css" />
+    <style>
+        /* ── Assessment Cards ── */
+        .assess-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .assess-card-new {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 14px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform .2s, box-shadow .2s;
+            border: 1.5px solid transparent;
+            cursor: pointer;
+        }
+
+        .assess-card-new:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 28px rgba(26, 175, 170, 0.18);
+            border-color: var(--teal);
+        }
+
+        .assess-card-img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+        }
+
+        .assess-card-body {
+            padding: 16px 18px 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 6px;
+        }
+
+        .assess-card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .assess-card-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .assess-card-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 9px 22px;
+            background: var(--teal);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s;
+            align-self: flex-start;
+        }
+
+        .assess-card-btn:hover {
+            background: var(--teal-dark);
+        }
+
+        /* ── Modal ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 32px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .modal-icon {
+            font-size: 2rem;
+        }
+
+        .modal-box h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: var(--teal);
+        }
+
+        .modal-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .modal-q {
+            margin-bottom: 18px;
+        }
+
+        .modal-q p {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .modal-opts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .modal-opts label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            padding: 6px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            transition: all .2s;
+        }
+
+        .modal-opts label:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
+        .modal-opts input[type=radio]:checked+span,
+        .modal-opts label:has(input:checked) {
+            border-color: var(--teal);
+            background: var(--teal-light);
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        .modal-opts input {
+            display: none;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            background: var(--teal-light);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .result-score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--teal);
+            line-height: 1;
+        }
+
+        .result-level {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 8px 0 12px;
+        }
+
+        .result-msg {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+
+        /* ── Quiz Modal ── */
+        .modal-box {
+            background: var(--white);
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 580px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .quiz-header {
+            padding: 20px 24px 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 14px;
+        }
+
+        .quiz-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .quiz-title-row h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            flex: 1;
+            line-height: 1.3;
+        }
+
+        .quiz-close {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: var(--muted);
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background .15s;
+        }
+
+        .quiz-close:hover {
+            background: var(--bg);
+        }
+
+        .quiz-progress-wrap {
+            height: 6px;
+            background: var(--border);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background: var(--teal);
+            border-radius: 50px;
+            width: 0%;
+            transition: width .4s ease;
+        }
+
+        .quiz-progress-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        .quiz-stage {
+            padding: 24px;
+            min-height: 280px;
+        }
+
+        .quiz-screen {
+            animation: fadeIn .25s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quiz-intro-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .quiz-intro-desc {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+            text-align: center;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .quiz-q-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .quiz-opts-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-opt-label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text);
+            transition: all .2s;
+            background: var(--white);
+        }
+
+        .quiz-opt-label:hover {
+            border-color: var(--teal);
+            background: var(--teal-light);
+        }
+
+        .quiz-opt-label.selected {
+            border-color: var(--teal);
+            background: var(--teal-light);
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        .quiz-opt-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            transition: all .2s;
+        }
+
+        .quiz-opt-label.selected .quiz-opt-circle {
+            border-color: var(--teal);
+            background: var(--teal);
+            color: #fff;
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-6px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(6px);
+            }
+        }
+
+        .shake {
+            animation: shake .4s ease;
+            border-color: #e53e3e !important;
+        }
+
+        /* ── Result screen ── */
+        .result-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .result-pct {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--teal);
+        }
+
+        .result-level {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .result-msg {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.7;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        #screen-result {
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .assess-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .assess-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main">
+        <h1 class="page-title">Mental Health Assessments</h1>
+        <div class="info-banner">📋 These assessments are not a substitute for professional diagnosis. They help you
+            understand your wellbeing and decide whether to seek help.</div>
+
+        <div class="assess-grid" id="assess-grid"></div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-box" id="modal-box">
+            <!-- Header (always visible) -->
+            <div class="quiz-header">
+                <div class="quiz-title-row">
+                    <span class="modal-icon" id="modal-icon"></span>
+                    <h2 id="modal-title"></h2>
+                    <button class="quiz-close" onclick="closeModal()">✕</button>
+                </div>
+                <!-- Progress bar -->
+                <div class="quiz-progress-wrap">
+                    <div class="quiz-progress-bar" id="quiz-progress"></div>
+                </div>
+                <div class="quiz-progress-label" id="quiz-label">Question 1 of ?</div>
+            </div>
+
+            <!-- Question area -->
+            <div class="quiz-stage" id="quiz-stage">
+                <!-- intro screen -->
+                <div class="quiz-screen" id="screen-intro">
+                    <div class="quiz-intro-icon" id="intro-icon"></div>
+                    <div class="quiz-intro-desc" id="intro-desc"></div>
+                    <button class="btn-teal" style="margin-top:24px" onclick="startQuiz()">Start Assessment →</button>
+                </div>
+
+                <!-- question screen -->
+                <div class="quiz-screen" id="screen-question" style="display:none">
+                    <p class="quiz-q-text" id="q-text"></p>
+                    <div class="quiz-opts-vertical" id="q-opts"></div>
+                    <div class="quiz-nav">
+                        <button class="btn-ghost" id="btn-back" onclick="prevQuestion()">← Back</button>
+                        <button class="btn-teal" id="btn-next" onclick="nextQuestion()">Next →</button>
+                    </div>
+                </div>
+
+                <!-- result screen -->
+                <div class="quiz-screen" id="screen-result" style="display:none">
+                    <div class="result-circle" id="result-circle">
+                        <div class="result-pct" id="result-pct"></div>
+                    </div>
+                    <div class="result-level" id="result-level"></div>
+                    <div class="result-msg" id="result-msg"></div>
+                    <a href="/pricing" class="btn-teal"
+                        style="display:inline-block;margin-top:20px;text-decoration:none">View Pricing & Book →</a>
+                    <button class="btn-ghost" style="margin-top:12px;display:block;width:100%"
+                        onclick="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/dashboard.js"></script>
+    <script>
+        initDashboard('assessment');
+
+        const ASSESSMENTS = [
+            { icon: 'https://images.unsplash.com/photo-1493836512294-502baa1986e2?auto=format&fit=crop&w=400&q=80', title: 'Am I Sad Or Depressed?', desc: 'Is it more than just feeling low? Take the assessment to find out.', bg: '#eef6ff', fullDesc: 'This PHQ-9 based assessment helps identify signs of depression. Answering honestly will give you the most accurate insight.', questions: ['Over the last 2 weeks, how often have you had little interest or pleasure in doing things?', 'How often have you been feeling down, depressed, or hopeless?', 'How often have you had trouble falling or staying asleep, or sleeping too much?', 'How often have you been feeling tired or having little energy?', 'How often have you had poor appetite or been overeating?', 'How often have you felt bad about yourself — or that you are a failure?', 'How often have you had trouble concentrating on things?', 'How often have you been moving or speaking so slowly that others could notice?', 'How often have you had thoughts of being better off dead or hurting yourself?'] },
+            { icon: 'https://images.unsplash.com/photo-1572814895138-9a1501883636?auto=format&fit=crop&w=400&q=80', title: 'Are You in an Unhealthy Relationship?', desc: 'Recognizing the Signs Before It\'s Too Late.', bg: '#fff0f0', fullDesc: 'Healthy relationships are built on mutual respect. This assessment helps you identify signs of unhealthy or toxic dynamics.', questions: ['Does your partner make you feel guilty or ashamed about your choices?', 'Do you feel afraid to express your opinions or feelings to your partner?', 'Does your partner control who you see, where you go, or what you spend?', 'Have you experienced verbal, emotional, or physical harm from your partner?', 'Do you frequently feel lonely or unsupported in your relationship?', 'Does your partner dismiss your feelings or gaslight you?', 'Do you feel like you\'re walking on eggshells around your partner?'] },
+            { icon: 'https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?auto=format&fit=crop&w=400&q=80', title: 'Am I Stressed?', desc: 'Explore how stress has been taking a toll on your well-being. Take the assessment today!', bg: '#fff8ee', fullDesc: 'This PSS (Perceived Stress Scale) based assessment helps gauge your current stress levels.', questions: ['How often have you been upset because of something that happened unexpectedly?', 'How often have you felt that you couldn\'t control important things in your life?', 'How often have you felt nervous, anxious or stressed?', 'How often have you felt confident about your ability to handle personal problems?', 'How often have you felt that things were going your way?', 'How often have you been unable to cope with all the things you had to do?', 'How often have you been able to control irritations in your life?', 'How often have you felt that you were on top of things?'] },
+            { icon: 'https://images.unsplash.com/photo-1541844053589-346841d0b34c?auto=format&fit=crop&w=400&q=80', title: 'Am I Anxious?', desc: 'Anxiety jitters never leave you. Take the self-check today to understand your anxiety better.', bg: '#f5f0ff', fullDesc: 'Based on the GAD-7 scale, this assessment helps identify whether you may be experiencing generalised anxiety.', questions: ['How often have you been feeling nervous, anxious, or on edge?', 'How often have you not been able to stop or control worrying?', 'How often have you been worrying too much about different things?', 'How often have you had trouble relaxing?', 'How often have you been so restless that it is hard to sit still?', 'How often have you become easily annoyed or irritable?', 'How often have you felt afraid, as if something awful might happen?'] },
+            { icon: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', title: 'Happiness Scale', desc: 'Are you happy? Know today by taking the assessment.', bg: '#fffde7', fullDesc: 'This subjective wellbeing check helps you measure your overall sense of happiness and life satisfaction.', questions: ['In most ways, how close to ideal is your life?', 'How satisfied are you with your life overall right now?', 'How often do you feel positive emotions day-to-day?', 'How much energy and enthusiasm do you have for daily activities?', 'Do you feel your life has meaning and purpose?', 'How well do you cope when things go wrong?'] },
+            { icon: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=400&q=80', title: 'Parenting', desc: 'Parenting check-in, are you on the right track?', bg: '#f0fff4', fullDesc: 'A check-in to help parents reflect on their parenting style, emotional availability, and stress management.', questions: ['How confident do you feel in your ability to handle your child\'s difficult behaviour?', 'Do you feel connected and emotionally available for your child daily?', 'How well are you managing parenting stress without it affecting your child?', 'Do you and your co-parent (or support network) communicate effectively?', 'Do you feel guilt or regret about how you interact with your child?', 'How often do you spend quality, undistracted time with your child?'] },
+            { icon: 'https://images.unsplash.com/photo-1613061830313-a32c910d783d?auto=format&fit=crop&w=400&q=80', title: 'Breakup', desc: 'Have you moved on from your break up?', bg: '#fff0f6', fullDesc: 'Breakups can be emotionally overwhelming. This check helps you understand where you are in your healing journey.', questions: ['How often do you think about your ex in a way that disrupts your day?', 'Have you been able to resume normal social activities since the breakup?', 'Do you find yourself comparing new people to your ex?', 'Are you eating, sleeping, and exercising reasonably well?', 'Do you feel hopeful about future relationships?', 'Do you feel at peace with how the relationship ended?'] },
+            { icon: 'https://images.unsplash.com/photo-1618517047922-d18a5a36c109?auto=format&fit=crop&w=400&q=80', title: 'How Am I Sleeping?', desc: 'Are you getting the quality sleep you deserve? Know today by taking the assessment.', bg: '#eef5ff', fullDesc: 'Poor sleep significantly impacts mental health. This sleep quality assessment is based on the Pittsburgh Sleep Quality Index.', questions: ['How often do you have trouble falling asleep within 30 minutes?', 'How often do you wake up in the middle of the night or early morning?', 'How often do you have to get up to use the bathroom?', 'How often do you feel too hot or cold and can\'t sleep?', 'How often do you feel sleepy or lack energy during the daytime?', 'Overall, how would you rate your sleep quality?', 'How often does poor sleep affect your ability to do daily tasks?'] },
+            { icon: 'https://images.unsplash.com/photo-1575037614876-c38a4d44f5b8?auto=format&fit=crop&w=400&q=80', title: 'Alcohol/Drug Addiction Test', desc: 'Cut, Annoyed, Guilty, and Eye (CAGE): Preliminary test for substance abuse dependency in adults.', bg: '#fff8ee', fullDesc: 'The CAGE and AUDIT-based questionnaire is a validated screening tool for signs of substance dependency.', questions: ['Have you ever felt you should Cut down on your drinking or drug use?', 'Have people Annoyed you by criticising your drinking or drug use?', 'Have you ever felt Guilty about your drinking or drug use?', 'Have you ever had a drink or used drugs first thing in the morning (Eye-opener)?', 'Has your drinking or drug use ever caused problems with your work, family, or friends?', 'Have you ever tried to stop but found you couldn\'t?', 'Do you need more of the substance than before to get the same effect?'] },
+            { icon: 'https://images.unsplash.com/photo-1586473219010-2ffc57b0d282?auto=format&fit=crop&w=400&q=80', title: 'Workplace Stress Test', desc: 'Are you getting sick-listed due to work-related stress? Know today by taking the assessment.', bg: '#f5f0ff', fullDesc: 'Work-related stress is one of the leading causes of burnout. This assessment helps identify your level of occupational stress.', questions: ['Do you often feel overwhelmed by the amount of work you have to do?', 'Do you feel you have little control over decisions at work?', 'How often do you experience physical symptoms (headaches, fatigue) from work?', 'Do you feel undervalued or unrecognised for your work?', 'Do you have difficulty "switching off" from work after hours?', 'Have you taken sick days recently due to work-related stress?', 'Does work significantly interfere with your personal relationships?'] },
+            { icon: 'https://images.unsplash.com/photo-1614999776688-3980cc1e8640?auto=format&fit=crop&w=400&q=80', title: 'Health Anxiety', desc: 'Discover Peace of Mind with Our Health Anxiety Assessment.', bg: '#f0fff4', fullDesc: 'Health anxiety (hypochondria) involves excessive worry about having a serious illness. This assessment helps you understand your patterns.', questions: ['How often do you worry that a physical symptom means you have a serious illness?', 'Do you frequently check your body for signs of illness?', 'Do you often seek reassurance from doctors or family about your health?', 'Does health worry interfere with your ability to enjoy daily life?', 'Do you avoid medical information (news, articles) because it makes you feel worse?', 'Even when doctors tell you everything is fine, do you remain unconvinced?', 'How much time per day do you spend thinking about your health?'] },
+        ];
+
+        const OPTIONS = [
+            { label: 'Not at all', value: 0 },
+            { label: 'Several days', value: 1 },
+            { label: 'More than half the days', value: 2 },
+            { label: 'Nearly every day', value: 3 },
+        ];
+
+        // ── Render cards ──
+        const grid = document.getElementById('assess-grid');
+        ASSESSMENTS.forEach((a, i) => {
+            const card = document.createElement('div');
+            card.className = 'assess-card-new';
+            card.innerHTML = `
+          <div class="assess-card-img" style="background:${a.bg}"><img src="${a.icon}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="assess-card-body">
+            <div class="assess-card-title">${a.title}</div>
+            <div class="assess-card-desc">${a.desc}</div>
+            <button class="assess-card-btn" onclick="openAssessment(${i})">Take Test</button>
+          </div>`;
+            grid.appendChild(card);
+        });
+
+        // ── Quiz state ──
+        let currentAssessment = null;
+        let currentQ = 0;
+        let answers = [];
+
+        function openAssessment(i) {
+            currentAssessment = ASSESSMENTS[i];
+            currentQ = 0;
+            answers = new Array(currentAssessment.questions.length).fill(null);
+
+            document.getElementById('modal-icon').innerHTML = `<img src="${currentAssessment.icon}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;display:block;">`;
+            document.getElementById('modal-title').textContent = currentAssessment.title;
+            document.getElementById('intro-icon').innerHTML = `<img src="${currentAssessment.icon}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 16px;">`;
+            document.getElementById('intro-desc').textContent = currentAssessment.fullDesc;
+
+            showScreen('intro');
+            updateProgress();
+            document.getElementById('modal').classList.add('open');
+        }
+
+        function startQuiz() {
+            showScreen('question');
+            renderQuestion();
+        }
+
+        function showScreen(name) {
+            ['intro', 'question', 'result'].forEach(s =>
+                document.getElementById('screen-' + s).style.display = s === name ? '' : 'none'
+            );
+        }
+
+        function renderQuestion(direction) {
+            const q = currentAssessment.questions[currentQ];
+            const total = currentAssessment.questions.length;
+
+            // Animate slide
+            const stage = document.getElementById('screen-question');
+            stage.style.opacity = '0';
+            stage.style.transform = direction === 'back' ? 'translateX(-30px)' : 'translateX(30px)';
+            setTimeout(() => {
+                document.getElementById('q-text').textContent = q;
+                const saved = answers[currentQ];
+
+                document.getElementById('q-opts').innerHTML = OPTIONS.map((o, oi) => `
+            <label class="quiz-opt-label${saved === oi ? ' selected' : ''}" onclick="selectOption(${oi}, this)">
+              <span class="quiz-opt-circle">${saved === oi ? '✓' : ''}</span>
+              <span>${o.label}</span>
+            </label>`).join('');
+
+                document.getElementById('btn-back').style.visibility = currentQ === 0 ? 'hidden' : '';
+                document.getElementById('btn-next').textContent = currentQ === total - 1 ? 'See Results' : 'Next →';
+                updateProgress();
+
+                stage.style.transition = 'opacity .25s, transform .25s';
+                stage.style.opacity = '1';
+                stage.style.transform = 'translateX(0)';
+            }, 150);
+            stage.style.transition = 'opacity .15s, transform .15s';
+        }
+
+        function selectOption(oi, label) {
+            answers[currentQ] = oi;
+            document.querySelectorAll('.quiz-opt-label').forEach((l, idx) => {
+                l.classList.remove('selected');
+                l.querySelector('.quiz-opt-circle').textContent = '';
+            });
+            label.classList.add('selected');
+            label.querySelector('.quiz-opt-circle').textContent = '✓';
+        }
+
+        function nextQuestion() {
+            if (answers[currentQ] === null) {
+                const opts = document.querySelectorAll('.quiz-opt-label');
+                opts.forEach(o => o.classList.add('shake'));
+                setTimeout(() => opts.forEach(o => o.classList.remove('shake')), 500);
+                return;
+            }
+            if (currentQ < currentAssessment.questions.length - 1) {
+                currentQ++;
+                renderQuestion('next');
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQ > 0) { currentQ--; renderQuestion('back'); }
+        }
+
+        function updateProgress() {
+            const total = currentAssessment ? currentAssessment.questions.length : 1;
+            const pct = currentAssessment && document.getElementById('screen-question').style.display !== 'none'
+                ? Math.round(((currentQ + 1) / total) * 100)
+                : 0;
+            document.getElementById('quiz-progress').style.width = pct + '%';
+            document.getElementById('quiz-label').textContent =
+                document.getElementById('screen-question').style.display !== 'none'
+                    ? `Question ${currentQ + 1} of ${total}`
+                    : `${total} questions · ~${Math.ceil(total * 0.3)} mins`;
+        }
+
+        function showResults() {
+            const total = answers.reduce((a, b) => a + b, 0);
+            const maxScore = currentAssessment.questions.length * 3;
+            const pct = Math.round((total / maxScore) * 100);
+            const { level, color, msg } = pct < 20
+                ? { level: '🟢 Minimal concern', color: '#38a169', msg: 'You seem to be doing well. Keep maintaining healthy habits and check in periodically.' }
+                : pct < 45
+                    ? { level: '🟡 Mild concern', color: '#d69e2e', msg: 'You may be experiencing mild symptoms. Practising self-care and speaking with a counsellor can be helpful.' }
+                    : pct < 70
+                        ? { level: '🟠 Moderate concern', color: '#dd6b20', msg: 'Your responses suggest moderate concerns. We recommend talking to one of our certified counsellors.' }
+                        : { level: '🔴 High concern', color: '#e53e3e', msg: 'Your responses suggest significant distress. Please reach out to a mental health professional as soon as possible.' };
+
+            document.getElementById('result-circle').style.borderColor = color;
+            document.getElementById('result-pct').textContent = pct + '%';
+            document.getElementById('result-pct').style.color = color;
+            document.getElementById('result-level').textContent = level;
+            document.getElementById('result-level').style.color = color;
+            document.getElementById('result-msg').textContent = msg;
+            document.getElementById('quiz-progress').style.width = '100%';
+            document.getElementById('quiz-label').textContent = 'Assessment complete!';
+            showScreen('result');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('open');
+        }
+
+        document.getElementById('modal').addEventListener('click', e => {
+            if (e.target === document.getElementById('modal')) closeModal();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URBAN COUNSELLOR — Online Counseling Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script>
+    if (window.location.protocol === 'file:') {
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (a && a.getAttribute('href')) {
+          let href = a.getAttribute('href');
+          if (href.startsWith('http') || href.startsWith('#')) return;
+          if (href.startsWith('/services/')) {
+            e.preventDefault();
+            const slug = href.split('/').filter(Boolean).pop();
+            window.location.href = './service-category.html?id=' + slug;
+          } else if (href.startsWith('/support/')) {
+            e.preventDefault();
+            const slug = href.split('/').filter(Boolean).pop();
+            window.location.href = './service-details.html?id=' + slug;
+          } else if (href.startsWith('/') && href.length > 1) {
+            e.preventDefault();
+            const page = href.split('/')[1];
+            window.location.href = './' + page + '.html';
+          } else if (href === '/') {
+            e.preventDefault();
+            window.location.href = './index.html';
+          }
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div class="promo-bar">
+    <span>Get 10% Off On Your First Therapy Plan</span>
+    <div class="promo-code">
+      <span>BETTER10</span>
+      <button class="btn btn-outline btn-small">Click To Copy</button>
+    </div>
+  </div>
+
+  <header class="hero" id="top">
+    <nav class="nav">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">URBAN COUNSELLOR</span>
+      </div>
+      <div class="nav-links">
+        <a href="/our-story">Our Story</a>
+        <div class="nav-dropdown">
+          <a href="/services">Services <span class="nav-caret">▼</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/services/relationship-counselling">Relationship Counselling</a>
+            <a href="/services/stress-anxiety-depression">Stress Anxiety Depression</a>
+            <a href="/services/confidence">Confidence</a>
+            <a href="/services/trauma">Trauma</a>
+            <a href="/services/lgbtq">LGBTQ+</a>
+            <a href="/services/lifestyle-issues">Lifestyle Issues</a>
+            <a href="/services/women-centric-challenges">Women Centric Challenges</a>
+            <a href="/services/managing-workplace">Managing Workplace</a>
+            <a href="/services/parenting">Parenting</a>
+            <a href="/services/adhd">ADHD</a>
+            <a href="/services/psychiatric-support">Psychiatric Support</a>
+          </div>
+        </div>
+        <a href="/#articles">Articles</a>
+        <a href="/counsellors">Counsellors</a>
+        <a href="/#reviews">Reviews</a>
+      </div>
+      <div class="nav-actions" id="nav-actions">
+        <button class="btn btn-primary" id="nav-get-started" onclick="location.href='/pricing'">Get Started</button>
+        <a class="nav-link" id="nav-signin" href="/signin">Sign In</a>
+      </div>
+    </nav>
+
+    <div class="page-heading">
+      <h1>We Help With</h1>
+      <p>Select a category below to explore how our counselors can support you.</p>
+    </div>
+
+    <section id="services-catalog" class="section services-catalog">
+
+      <!-- Relationship Counselling -->
+      <a href="/services/relationship-counselling" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
+            alt="Relationship Counselling" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>Relationship Counselling</h3>
+            <p>Navigating relationships can be challenging. Whether you're dealing with conflict, intimacy issues, or a
+              breakup, our specialized counselors provide a safe space.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Stress Anxiety Depression -->
+      <a href="/services/stress-anxiety-depression" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1559526323-cb2f2fe2591b?auto=format&fit=crop&w=800&q=80"
+            alt="Stress Anxiety Depression" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>Stress Anxiety Depression</h3>
+            <p>Overwhelming emotions can disrupt your daily life. Therapy equips you with coping strategies to manage
+              panic, sadness, and tension.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Confidence -->
+      <a href="/services/confidence" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?auto=format&fit=crop&w=800&q=80"
+            alt="Confidence" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>Confidence</h3>
+            <p>Struggling with self-doubt or low self-esteem? Work with an expert to identify your strengths, silence
+              your inner critic, and build confidence.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Trauma -->
+      <a href="/services/trauma" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1493836512294-502baa1986e2?auto=format&fit=crop&w=800&q=80"
+            alt="Trauma" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>Trauma</h3>
+            <p>Past experiences can leave lasting invisible wounds. Trauma-informed therapy helps you safely process
+              devastating events.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- LGBTQ+ -->
+      <a href="/services/lgbtq" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80"
+            alt="LGBTQ+" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>LGBTQ+</h3>
+            <p>Find an affirming, open-minded environment to discuss identity, coming out, familial rejection, or gender
+              dysphoria.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Lifestyle Issues -->
+      <a href="/services/lifestyle-issues" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1502224562085-639556652f33?auto=format&fit=crop&w=800&q=80"
+            alt="Lifestyle Issues" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>Lifestyle Issues</h3>
+            <p>Struggling with motivation, bad habits, or life transitions? We help you realign your day-to-day actions
+              with your long-term goals.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Women Centric Challenges -->
+      <a href="/services/women-centric-challenges" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"
+            alt="Women Centric Challenges" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>Women Centric Challenges</h3>
+            <p>Women face unique societal, physical, and emotional hurdles. Experience a supportive space dedicated to
+              women's issues.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Managing Workplace -->
+      <a href="/services/managing-workplace" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+            alt="Managing Workplace" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>Managing Workplace</h3>
+            <p>Burnout, difficult bosses, or career stagnation can dominate your thoughts. Find guidance on managing
+              professional stress.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Parenting -->
+      <a href="/services/parenting" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?auto=format&fit=crop&w=800&q=80"
+            alt="Parenting" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>Parenting</h3>
+            <p>Parenting is deeply rewarding but profoundly stressful. Receive actionable advice and emotional support
+              for diverse parenting hurdles.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- ADHD -->
+      <a href="/services/adhd" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80"
+            alt="ADHD" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>ADHD</h3>
+            <p>Difficulty focusing, time blindness, or executive dysfunction? Working with a therapist experienced in
+              ADHD can help you build customized systems.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Psychiatric Support -->
+      <a href="/services/psychiatric-support" class="service-category-card"
+        style="text-decoration: none; color: inherit; display: block; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="service-category-header" style="padding-bottom: 0;">
+          <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80"
+            alt="Psychiatric Support" class="service-cat-img" />
+          <div class="service-cat-text">
+            <h3>Psychiatric Support</h3>
+            <p>Sometimes counseling alone isn't enough. Our certified psychiatrists provide medical evaluations and
+              pharmacological management.</p>
+            <div
+              style="margin-top: 15px; color: var(--teal); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              Explore Services <span>➔</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </section>
+
+    <aside class="float-actions">
+      <button class="float-btn" onclick="location.href='/onboarding'">Book Session</button>
+      <button class="float-btn">Chat</button>
+      <button class="float-btn">Call</button>
+    </aside>
+
+    <footer class="footer">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">URBAN COUNSELLOR</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+      <span class="footer-copy">© 2026 Urban Counsellor. All rights reserved.</span>
+    </footer>
+    <style>
+      .nav-profile {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--teal, #1aafaa);
+        color: #fff;
+        font-weight: 700;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        transition: box-shadow .2s;
+      }
+
+      .nav-avatar:hover {
+        box-shadow: 0 0 0 3px rgba(26, 175, 170, 0.35);
+      }
+
+      .profile-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        min-width: 200px;
+        padding: 12px 0;
+        z-index: 999;
+      }
+
+      .profile-dropdown.open {
+        display: block;
+      }
+
+      .profile-dropdown .pd-email {
+        padding: 8px 18px 10px;
+        font-size: 0.82rem;
+        color: #666;
+        border-bottom: 1px solid #f0f0f0;
+        word-break: break-all;
+      }
+
+      .profile-dropdown .pd-btn {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 10px 18px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: #e53e3e;
+        font-weight: 600;
+        transition: background .15s;
+      }
+
+      .profile-dropdown .pd-btn:hover {
+        background: #fff5f5;
+      }
+    </style>
+    <script>
+      const featuredImages = [
+        { src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80", alt: "Individual therapy" },
+        { src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80", alt: "Relationship & marriage counseling" },
+        { src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80", alt: "Career counseling" },
+        { src: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80", alt: "Stress & anxiety management" },
+        { src: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=900&q=80", alt: "Online therapy sessions" }
+      ];
+      const featuredImg = document.getElementById("featured-img");
+      const storyDots = document.querySelectorAll(".story-dots span");
+      let fi = 0;
+      function renderFeatured() {
+        featuredImg.src = featuredImages[fi].src;
+        featuredImg.alt = featuredImages[fi].alt;
+        storyDots.forEach((d, i) => d.classList.toggle("active", i === fi));
+      }
+      renderFeatured();
+      setInterval(() => {
+        fi = (fi + 1) % featuredImages.length;
+        renderFeatured();
+      }, 1000);
+      const backups = {
+        Relationships: "https://images.unsplash.com/photo-1519741491153-0f4a6c1a3bc5?auto=format&fit=crop&w=900&q=80",
+        "Stress & anxiety management": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=80",
+        "Therapist session": "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=400&q=80",
+        Confidence: "https://images.unsplash.com/photo-1512686096451-a15c19314b05?auto=format&fit=crop&w=900&q=80",
+        "Meditation illustration": "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=900&q=80"
+      };
+      document.querySelectorAll("img").forEach((img) => {
+        img.addEventListener(
+          "error",
+          () => {
+            const a = img.alt || "";
+            let key = null;
+            if (a.includes("Relationship")) key = "Relationships";
+            else if (a.includes("Stress")) key = "Stress & anxiety management";
+            else if (a.includes("Therapist")) key = "Therapist session";
+            else if (a.includes("Confidence")) key = "Confidence";
+            else if (a.includes("Meditation")) key = "Meditation illustration";
+            if (key && backups[key]) {
+              img.src = backups[key];
+            }
+          },
+          { once: true }
+        );
+      });
+    </script>
+    <script src="/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      (async () => {
+        const url = window.SUPABASE_URL || '';
+        const key = window.SUPABASE_ANON_KEY || '';
+        if (!url || !key) return;
+        const sb = window.supabase.createClient(url, key);
+
+        function renderLoggedIn(email) {
+          const initial = (email || 'U')[0].toUpperCase();
+          const actions = document.getElementById('nav-actions');
+          actions.innerHTML = `
+            <div class="nav-profile" id="nav-profile">
+              <div class="nav-avatar" id="nav-avatar" title="${email}">${initial}</div>
+              <div class="profile-dropdown" id="profile-dropdown">
+                <div class="pd-email">${email}</div>
+                <button class="pd-btn" id="pd-signout">Sign Out</button>
+              </div>
+            </div>`;
+          document.getElementById('nav-avatar').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('profile-dropdown').classList.toggle('open');
+          });
+          document.addEventListener('click', () => {
+            const dd = document.getElementById('profile-dropdown');
+            if (dd) dd.classList.remove('open');
+          });
+          document.getElementById('pd-signout').addEventListener('click', async () => {
+            await sb.auth.signOut();
+            window.location.reload();
+          });
+        }
+
+        function renderLoggedOut() {
+          const actions = document.getElementById('nav-actions');
+          actions.innerHTML = `
+            <button class="btn btn-primary" onclick="location.href='/pricing'">Get Started</button>
+            <a class="nav-link" href="/signin">Sign In</a>`;
+        }
+
+        const { data: { session } } = await sb.auth.getSession();
+        if (session && session.user) {
+          renderLoggedIn(session.user.email);
+        } else {
+          renderLoggedOut();
+        }
+
+        sb.auth.onAuthStateChange((_event, session) => {
+          if (session && session.user) renderLoggedIn(session.user.email);
+          else renderLoggedOut();
+        });
+      })();
+    </script>
+</body>
+
+</html>
