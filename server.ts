@@ -4,6 +4,8 @@ import express from "express";
 import session from "express-session";
 import path from "path";
 import { Pool } from "pg";
+
+declare const process: any;
 dotenv.config();
 
 const app = express();
@@ -197,5 +199,6 @@ app.post("/api/logout", (req, res) => {
 initDb()
   .catch(() => { })
   .finally(() => {
-    app.listen(8000, "0.0.0.0", () => { });
+    const port = process.env.PORT || 8000;
+    app.listen(port, "0.0.0.0", () => { });
   });
