@@ -1,8 +1,47 @@
-# Urban Counsellor
+# Urban Counsellor — Online Counseling Platform
 
-- Static HTML + Express server with Supabase Auth (email/password and Google)
-- Backend persists user emails to Postgres; signup does not block on DB write
-- Environment is loaded via `.env` and exposed to the frontend at `/config.js`
+Urban Counsellor is a comprehensive digital wellness platform designed to normalize and democratize access to quality mental health support. It provides a seamless interface for individuals to seek professional therapy, counseling, and psychiatric services from the comfort of their homes.
+
+## 🌟 Key Features
+
+- **Mental Health Assessments**: Insightful self-tests to help users understand their wellness needs.
+- **Diverse Counseling Services**: Specialized support for relationships, stress, anxiety, LGBTQ+ challenges, workplace management, and more.
+- **Expert matching**: Connect with qualified and trained clinical psychologists and mental health experts.
+- **Secure Authentication**: Integrated with Supabase for robust email/password and Google OAuth sign-in.
+- **Professional Dashboard**: User-friendly interface for managing sessions and resources.
+- **Informative Content**: A library of articles from expert therapists on various mental health topics.
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Framework**: [Express.js](https://expressjs.com/) (v5.2.1) — High-performance web framework for Node.js.
+- **Runtime**: [Node.js](https://nodejs.org/) with [TypeScript](https://www.typescriptlang.org/) (v5.9.3).
+- **Database Adapters**:
+  - `pg` (v8.18.0) — PostgreSQL client for Node.js, used for database pooling and queries.
+  - `sqlite` & `sqlite3` — Used for local data storage and development.
+- **Authentication & Security**:
+  - `express-session` (v1.19.0) — For server-side session management.
+  - `bcrypt` (v6.0.0) — For secure password hashing and comparison.
+  - `cors` (v2.8.6) — Middleware for enabling Cross-Origin Resource Sharing.
+- **Environment Management**: `dotenv` (v17.3.1) — Loads environment variables from `.env` files.
+- **Development Tools**: `ts-node` (v10.9.2) — Runs TypeScript code directly without pre-compilation.
+
+### Frontend
+- **Core**: Vanilla HTML5, CSS3, and JavaScript (ES6+).
+- **Authentication Client**: [@supabase/supabase-js](https://supabase.com/docs/reference/javascript/introduction) (v2) — Client-side SDK for Supabase Auth and Database interactions.
+- **Typography**: Google Fonts (Open Sans, Poppins).
+- **Styling**: Modern, responsive UI with custom CSS variables and utility classes.
+
+## 📂 Project Structure
+
+- `server.ts`: Express server handling routing and backend logic.
+- `index.html`: The main landing page showcasing services and therapists.
+- `assessment.html`: Mental health assessment tool.
+- `counsellors.html`: Directory of available mental health professionals.
+- `assets/`: Centralized storage for media, logos, and icons.
+- `dist/`: Compiled production code from TypeScript.
+
+---
 
 ## Quick Start
 
