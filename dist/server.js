@@ -19,25 +19,21 @@ app.use((0, express_session_1.default)({
     saveUninitialized: false,
 }));
 const ROOT = process.cwd();
-const pgUrl = process.env.DATABASE_URL;
+// Always use individual PG* vars to avoid URL-decoding issues with special
+// characters (e.g. # in password decoded from %23 breaks URL hostname parsing).
 const pgHost = process.env.PGHOST;
-const pgPort = process.env.PGPORT ? Number(process.env.PGPORT) : undefined;
+const pgPort = process.env.PGPORT ? Number(process.env.PGPORT) : 5432;
 const pgUser = process.env.PGUSER;
 const pgPassword = process.env.PGPASSWORD;
 const pgDatabase = process.env.PGDATABASE;
-const pool = pgUrl
-    ? new pg_1.Pool({
-        connectionString: pgUrl,
-        ssl: process.env.DATABASE_SSL === "true" ? { rejectUnauthorized: false } : undefined,
-    })
-    : new pg_1.Pool({
-        host: pgHost,
-        port: pgPort || 5432,
-        user: pgUser,
-        password: pgPassword,
-        database: pgDatabase,
-        ssl: process.env.DATABASE_SSL === "true" ? { rejectUnauthorized: false } : undefined,
-    });
+const pool = new pg_1.Pool({
+    host: pgHost,
+    port: pgPort,
+    user: pgUser,
+    password: pgPassword,
+    database: pgDatabase,
+    ssl: process.env.DATABASE_SSL === "true" ? { rejectUnauthorized: false } : undefined,
+});
 async function initDb() {
     await pool.query(`
     CREATE TABLE IF NOT EXISTS users (
@@ -54,6 +50,52 @@ app.get("/signin", (_req, res) => {
 });
 app.get("/signup", (_req, res) => {
     res.sendFile(path_1.default.join(ROOT, "signup.html"));
+});
+app.get("/onboarding", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "onboarding.html"));
+});
+app.get("/therapist-email", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "therapist-email.html"));
+});
+app.get("/nutrition", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "nutrition.html"));
+});
+app.get("/session-notes", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "session-notes.html"));
+});
+app.get("/self-help", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "self-help.html"));
+});
+app.get("/assessment", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "assessment.html"));
+});
+app.get("/reading", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "reading.html"));
+});
+app.get("/our-story", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "our-story.html"));
+});
+app.get("/pricing", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "pricing.html"));
+});
+app.get("/services", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "services.html"));
+});
+app.get("/counsellors", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "counsellors.html"));
+});
+app.get("/services/:category", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "service-category.html"));
+});
+app.get("/support/:service", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "service-details.html"));
+});
+app.get("/dashboard.css", (_req, res) => {
+    res.sendFile(path_1.default.join(ROOT, "dashboard.css"));
+});
+app.get("/dashboard.js", (_req, res) => {
+    res.setHeader("Content-Type", "application/javascript");
+    res.sendFile(path_1.default.join(ROOT, "dashboard.js"));
 });
 app.get("/styles.css", (_req, res) => {
     res.sendFile(path_1.default.join(ROOT, "styles.css"));
@@ -76,51 +118,22 @@ app.get("/api/db-health", async (_req, res) => {
     }
     catch (err) {
         const ssl = process.env.DATABASE_SSL === "true";
-        let host = "";
-        let port = undefined;
-        if (pgUrl) {
-            try {
-                const u = new URL(pgUrl);
-                host = u.hostname;
-                port = Number(u.port || "5432");
-            }
-            catch { }
-        }
-        else {
-            host = String(pgHost || "");
-            port = pgPort || 5432;
-        }
         res.status(503).json({
             ok: false,
             error: "DB unreachable",
             code: String(err.code || ""),
             message: String(err.message || ""),
-            host,
-            port,
+            host: String(pgHost || ""),
+            port: pgPort,
             ssl,
         });
     }
 });
 app.get("/api/db-info", (_req, res) => {
     const ssl = process.env.DATABASE_SSL === "true";
-    if (pgUrl) {
-        try {
-            const u = new URL(pgUrl);
-            res.json({
-                using_url: true,
-                host: u.hostname,
-                port: Number(u.port || "5432"),
-                database: u.pathname.replace("/", ""),
-                ssl,
-            });
-            return;
-        }
-        catch { }
-    }
     res.json({
-        using_url: false,
         host: String(pgHost || ""),
-        port: pgPort || 5432,
+        port: pgPort,
         database: String(pgDatabase || ""),
         ssl,
     });
@@ -156,5 +169,6 @@ app.post("/api/logout", (req, res) => {
 initDb()
     .catch(() => { })
     .finally(() => {
-    app.listen(8000, "0.0.0.0", () => { });
+    const port = process.env.PORT || 8000;
+    app.listen(port, "0.0.0.0", () => { });
 });
